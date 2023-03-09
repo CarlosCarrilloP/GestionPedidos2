@@ -1,0 +1,5 @@
+Camiseta, 29.99, 10
+Zapatos, 59.99, 1
+Sombrero, 10, 5
+Bufanda, 5, 20
+Gorra, 14.50, 8
