@@ -98,11 +98,7 @@ public class Cliente {
 
 			this.telefono = telefono;
 		} else {
-<<<<<<< Updated upstream
-			System.out.println("FORMATO DE TELEFONO INCORRECTO");
-=======
 			//System.out.println("FORMATO DE TELEFONO INCORRECTO");
->>>>>>> Stashed changes
 		}
 
 		this.direccion = direccion;
@@ -120,9 +116,6 @@ public class Cliente {
 
 	}
 
-<<<<<<< Updated upstream
-=======
 	
 
->>>>>>> Stashed changes
 }

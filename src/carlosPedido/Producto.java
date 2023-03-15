@@ -1,14 +1,10 @@
 package carlosPedido;
 
-<<<<<<< Updated upstream
-public class Producto {
-=======
 import java.util.ArrayList;
 
 import ficherosEscrituraLectura.TratamientoFicheros;
 
 public class Producto extends TratamientoFicheros {
->>>>>>> Stashed changes
 	// Atributos
 	String nombre;
 	double precio;
@@ -59,38 +55,6 @@ public class Producto extends TratamientoFicheros {
 
 	public int getStock() {
 		return this.stock;
-<<<<<<< Updated upstream
-	}
-
-	// Rellenar stock
-	public void rellenarStock() {
-
-		for (int i = 0; i < stock1.length; i++) {
-
-			stock1[i] = 1;
-
-		}
-
-	}
-
-	public int mostrarStock() {
-		// Inicializo la variable a 0 de nuevo porque si no, el valor de cantidad1 es
-		// erroneo
-		cantidad1 = 0;
-		for (int i = 0; i < stock1.length; i++) {
-
-			cantidad1++;
-
-		}
-
-		return cantidad1;
-	}
-
-	// Metodo realizar pedido
-	public void realizarPedido(int cantidad) {
-		cantidad1 = cantidad1 - cantidad;
-=======
->>>>>>> Stashed changes
 	}
 
 	// Rellenar stock
@@ -128,7 +92,7 @@ public class Producto extends TratamientoFicheros {
 		
 		// Productos
 				ArrayList<String[]> productosList = (ArrayList<String[]>) fileScannerProducto(
-						"C:/Users/Carlos Carrillo/eclipse-workspace/carlosPedido/src/carlosPedido/Producto.txt");
+						"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Producto.txt");
 				String[] nproducto1 = productosList.get(0);
 				String nombreproducto1 = nproducto1[0];
 				Double precio1 = Double.parseDouble(nproducto1[1]);

@@ -1,8 +1,5 @@
 Juan, Perez, 666666666, Calle 1 Benferri
 María, García, 777777777, Calle 2 Orihuela
 Pedro, Martinez, 888888888, Calle 3 Rojales
-<<<<<<< Updated upstream
-=======
 a,A,923456789,a
 a,A,623456789,a
->>>>>>> Stashed changes

@@ -146,34 +146,9 @@ public class Pedido {
 		return String.valueOf(new Date().getTime());
 
 	}
-<<<<<<< Updated upstream
-
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
 	public String toString() {
-
-		double totalProducto1 = 0;
-		double totalProducto2 = 0;
-		String strProducto1 = "";
-		String strProducto2 = "";
-		if (producto1 != null) {
-			totalProducto1 = producto1.getCantidad() * producto1.getPrecio();
-			strProducto1 = producto1.getCantidad() + "                  " + producto1.getNombre() + "                "
-					+ producto1.getPrecio() + "                " + totalProducto1 + " â‚¬ \n";
-		}
-		if (producto2 != null) {
-			totalProducto2 = producto2.getCantidad() * producto2.getPrecio();
-			strProducto2 = producto2.getCantidad() + "              " + producto2.getNombre() + "                "
-					+ producto2.getPrecio() + "            " + totalProducto2 + " â‚¬ \n";
-		}
-		double totalPedido = totalProducto1 + totalProducto2;
-
-		return " CANTIDAD    PRODUCTO           PRECIO UD.            TOTAL \n" + strProducto1 + strProducto2 + " TOTAL -------------------------------> " + totalPedido + "  â‚¬ \n ";
-				}
-
-=======
-	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
-	public String toString() {
-	    String ruta = "C:/Users/Carlos Carrillo/eclipse-workspace/carlosPedido/src/carlosPedido/Ticket.txt";
+	    String ruta = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Ticket.txt";
 	    StringBuilder sb = new StringBuilder();
 
 	    double totalProducto1 = 0;
@@ -209,7 +184,6 @@ public class Pedido {
 	}
 
 
->>>>>>> Stashed changes
 	public double toString2() {
 		double totalPedido = 0;
 		if (producto1 != null) {
