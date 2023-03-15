@@ -26,6 +26,7 @@ public class TratamientoFicheros {
 
 	// Metodo fileScanner Cliente
 	public static List<String[]> fileScannerCliente(String archivo) {
+<<<<<<< Updated upstream
 		String ruta = archivo;
 		File f = new File(ruta);
 		System.out.println("La ruta del fichero es: " + f.getAbsolutePath());
@@ -50,6 +51,35 @@ public class TratamientoFicheros {
 		}
 		return clientes;
 	}
+=======
+	    String ruta = archivo;
+	    File f = new File(ruta);
+	    System.out.println("La ruta del fichero es: " + f.getAbsolutePath());
+	    Scanner s;
+	    List<String[]> clientes = new ArrayList<>();
+	    try {
+	        s = new Scanner(f);
+	        int i = 0; // contador de clientes para agregar solo los 3 primeros de la lista en el caso de que haya mas de 3.
+	        while (s.hasNextLine() && i < 3) {
+	            String linea = s.nextLine();
+	            Scanner sl = new Scanner(linea);
+	            sl.useDelimiter("\\s*,\\s*");
+	            String[] datosCliente = new String[4];
+	            datosCliente[0] = sl.next();
+	            datosCliente[1] = sl.next();
+	            datosCliente[2] = sl.next();
+	            datosCliente[3] = sl.next();
+	            clientes.add(datosCliente);
+	            i++;
+	        }
+	        s.close();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    return clientes;
+	}
+
+>>>>>>> Stashed changes
 //Metodo fileScanner para Productos
 	public static List<String[]> fileScannerProducto(String archivo) {
 		String ruta = archivo;

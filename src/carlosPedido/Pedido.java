@@ -1,5 +1,8 @@
 package carlosPedido;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 public class Pedido {
@@ -132,7 +135,7 @@ public class Pedido {
 		}
 
 	}
-
+	
 	public Producto eliminarProducto(Producto producto) {
 		producto = null;
 		return producto;
@@ -143,6 +146,7 @@ public class Pedido {
 		return String.valueOf(new Date().getTime());
 
 	}
+<<<<<<< Updated upstream
 
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
 	public String toString() {
@@ -166,6 +170,46 @@ public class Pedido {
 		return " CANTIDAD    PRODUCTO           PRECIO UD.            TOTAL \n" + strProducto1 + strProducto2 + " TOTAL -------------------------------> " + totalPedido + "  â‚¬ \n ";
 				}
 
+=======
+	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
+	public String toString() {
+	    String ruta = "C:/Users/Carlos Carrillo/eclipse-workspace/carlosPedido/src/carlosPedido/Ticket.txt";
+	    StringBuilder sb = new StringBuilder();
+
+	    double totalProducto1 = 0;
+	    double totalProducto2 = 0;
+	    String strProducto1 = "";
+	    String strProducto2 = "";
+	    if (producto1 != null) {
+	        totalProducto1 = producto1.getCantidad() * producto1.getPrecio();
+	        strProducto1 = producto1.getCantidad() + "                  " + producto1.getNombre() + "             "
+	                + producto1.getPrecio() + "                  " + totalProducto1 + " € \n";
+	    }
+	    if (producto2 != null) {
+	        totalProducto2 = producto2.getCantidad() * producto2.getPrecio();
+	        strProducto2 = producto2.getCantidad() + "                  " + producto2.getNombre() + "             "
+	                + producto2.getPrecio() + "                   " + totalProducto2 + " € \n";
+	    }
+	    double totalPedido = totalProducto1 + totalProducto2;
+
+	    sb.append("CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL \n")
+	        .append(strProducto1)
+	        .append(strProducto2)
+	        .append(" TOTAL -------------------------------> ")
+	        .append(totalPedido)
+	        .append("  € \n ");
+
+	    try (PrintWriter pw = new PrintWriter(new FileWriter(ruta, false))) {//False para que no me guarde los tickets, solo 1, si no cambiar a true
+	        pw.print(sb.toString());
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    return sb.toString();
+	}
+
+
+>>>>>>> Stashed changes
 	public double toString2() {
 		double totalPedido = 0;
 		if (producto1 != null) {

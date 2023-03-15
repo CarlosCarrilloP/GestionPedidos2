@@ -1,0 +1,5 @@
+CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
+12                  CAMISETA             29.99                  359.88 € 
+12                  ZAPATOS             59.99                   719.88 € 
+ TOTAL -------------------------------> 1079.76  € 
+ 
