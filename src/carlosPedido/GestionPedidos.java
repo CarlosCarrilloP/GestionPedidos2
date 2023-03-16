@@ -23,6 +23,7 @@ public class GestionPedidos extends TratamientoFicheros {
 //////////////Rutas Absolutas
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
+		String rutaCliente = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt";
 		double totalefectivo = 0;
 		Scanner sc = new Scanner(System.in);
 
@@ -63,12 +64,12 @@ public class GestionPedidos extends TratamientoFicheros {
 
 			// Crear el cliente4 con los datos ingresados por el usuario
 			cliente4 = new Cliente(nombre4, apellido4, null, telefono4, direccion4, null);
-			String ruta1 = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt";
+			
 			// Escribir los datos del cliente4 en el archivo "Cliente.txt"
 			try {
 				// Crear un objeto FileWriter con la opción append a true para no sobreescribir
 				// el contenido existente
-				FileWriter fw = new FileWriter(ruta1, true);
+				FileWriter fw = new FileWriter(rutaCliente, true);
 				// Crear un objeto PrintWriter para escribir los datos en el archivo
 				PrintWriter pw = new PrintWriter(fw);
 				// Escribir los datos del cliente4 en el archivo separados por comas
@@ -77,14 +78,14 @@ public class GestionPedidos extends TratamientoFicheros {
 				// Cerrar el objeto PrintWriter
 				pw.close();
 			} catch (IOException e) {
-				System.out.println("Error al escribir en el archivo " + ruta1);
+				System.out.println("Error al escribir en el archivo " + rutaCliente);
 				e.printStackTrace();
 			}
 
 			break;
 		case 2:
 
-			String ruta = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt";
+			
 			System.out.println(" Has elegido: Continuar con el cliente ya creado");
 			List<String[]> clientes = fileScannerCliente(
 					"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt");
@@ -125,76 +126,11 @@ public class GestionPedidos extends TratamientoFicheros {
 			System.out.println("Valor introducido no valido");
 			break;
 		}
-
+		//Cargar Productos
 		Producto b = new Producto();
 
 		ArrayList<Producto> prueba = b.cargarProductos();
 
-		// Ticket? Cuando tenga lo anterior lo vemos
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 * System.out.print("Ingresa el nombre del Cliente 1: ");
-		 * 
-		 * String nombre1 = sc.nextLine();
-		 * System.out.print("Ingresa el apellido del Cliente 1: "); String apellido1 =
-		 * sc.nextLine(); System.out.print("Ingresa el telefono del Cliente 1: ");
-		 * String telefono1 = sc.nextLine();
-		 * System.out.print("Ingresa la dirección del Cliente 1: "); String direccion1=
-		 * sc.nextLine();
-		 * 
-		 * Cliente cliente1 = new Cliente(nombre1, apellido1, null, telefono1,
-		 * direccion1, null);
-		 * 
-		 * System.out.print("Ingresa el nombre del Cliente 2: "); String nombre2 =
-		 * sc.nextLine(); System.out.print("Ingresa el apellido del Cliente 2: ");
-		 * String apellido2 = sc.nextLine();
-		 * System.out.print("Ingresa el telefono del Cliente 2: "); String telefono2 =
-		 * sc.nextLine(); System.out.print("Ingresa la dirección del Cliente 2: ");
-		 * String direccion2 = sc.nextLine(); Cliente cliente2 = new Cliente(nombre2,
-		 * apellido2, null, telefono2, direccion2, null);
-		 * 
-		 * System.out.print("Ingresa el nombre del Cliente 3: "); String nombre3 =
-		 * sc.nextLine(); System.out.print("Ingresa el apellido del Cliente 3: ");
-		 * String apellido3 = sc.nextLine();
-		 * System.out.print("Ingresa el telefono del Cliente 3: "); String telefono3 =
-		 * sc.nextLine(); System.out.print("Ingresa la dirección del Cliente 3: ");
-		 * String direccion3 = sc.nextLine();
-		 * 
-		 * Cliente cliente3 = new Cliente(nombre3, apellido3, null, telefono3,
-		 * direccion3, null);
-		 */
-
-		// Relleno de stock a 30 unidades llamando al metodo
-
-		// muestraContenido(rutaProducto);
-
-		/*
-		 * System.out.print("Ingresa el producto 1: "); String nproducto1 =
-		 * sc.nextLine();
-		 * 
-		 * Producto producto1 = new Producto(nproducto1, 9.99, 1);
-		 * 
-		 * System.out.print("Ingresa el producto 2: "); String nproducto2 =
-		 * sc.nextLine();
-		 * 
-		 * Producto producto2 = new Producto(nproducto2, 12.99, 0);
-		 * 
-		 * System.out.print("Ingresa el producto 3: "); String nproducto3 =
-		 * sc.nextLine();
-		 * 
-		 * Producto producto3 = new Producto(nproducto3, 15.99, 1);
-		 * 
-		 * System.out.print("Ingresa el producto 4: "); String nproducto4 =
-		 * sc.nextLine();
-		 * 
-		 * Producto producto4 = new Producto(nproducto4, 1.99, 1);
-		 * 
-		 * System.out.print("Ingresa el producto 5: "); String nproducto5 =
-		 * sc.nextLine();
-		 * 
-		 * Producto producto5 = new Producto(nproducto5, 4.99, 1);
-		 */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// MENU PEDIDOS
 
 		System.out.println("#####MENU PEDIDOS#####");
@@ -214,7 +150,9 @@ public class GestionPedidos extends TratamientoFicheros {
 		boolean esCliente2 = false;
 		boolean esCliente3 = false;
 		boolean esCliente4 = false;
-////////////////////Cambiar por switch
+		
+////////////////////Cambiar por switch parseInt antes y parseString Despues?
+		
 		if (telefono.equals(cliente1.getTelefono())) {
 			System.out.println("Hola Cliente1:");
 			esCliente1 = true;

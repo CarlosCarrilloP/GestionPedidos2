@@ -15,6 +15,7 @@ public class Pedido {
 	PasarelaDePago pago;
 	Estado estado;
 	String codigoPedido;
+	String rutaTicket = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Ticket.txt";
 
 	// Constructor vacío
 	public Pedido() {
@@ -148,7 +149,7 @@ public class Pedido {
 	}
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
 	public String toString() {
-	    String ruta = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Ticket.txt";
+	    
 	    StringBuilder sb = new StringBuilder();
 
 	    double totalProducto1 = 0;
@@ -174,7 +175,7 @@ public class Pedido {
 	        .append(totalPedido)
 	        .append("  € \n ");
 
-	    try (PrintWriter pw = new PrintWriter(new FileWriter(ruta, false))) {//False para que no me guarde los tickets, solo 1, si no cambiar a true
+	    try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {//False para que no me guarde los tickets, solo 1, si no cambiar a true
 	        pw.print(sb.toString());
 	    } catch (IOException e) {
 	        e.printStackTrace();
