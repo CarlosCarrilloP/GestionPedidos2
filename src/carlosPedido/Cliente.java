@@ -1,8 +1,12 @@
 package carlosPedido;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Cliente {
+import ficherosEscrituraLectura.TratamientoFicheros;
+
+public class Cliente extends TratamientoFicheros {
 
 	// Atributos
 
@@ -114,6 +118,27 @@ public class Cliente {
 
 		this.historial = this.historial + pedido.getCodigoPedido();
 
+	}
+	
+	public static List<Cliente> leerClientesDesdeArchivo(String rutaArchivo) {
+	    List<Cliente> clientes = new ArrayList<>();
+
+	    try {
+	        List<String[]> datosClientes = fileScannerCliente(rutaArchivo);
+	        
+	        for (String[] datos : datosClientes) {
+	            String nombre = datos[0];
+	            String apellido = datos[1];
+	            String telefono = datos[2];
+	            String direccion = datos[3];
+	            Cliente cliente = new Cliente(nombre, apellido, null, telefono, direccion, null);
+	            clientes.add(cliente);
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Error al leer el archivo de clientes: " + e.getMessage());
+	    }
+
+	    return clientes;
 	}
 
 	

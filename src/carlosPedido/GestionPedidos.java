@@ -11,8 +11,11 @@ import java.util.Scanner;
 import ficherosEscrituraLectura.TratamientoFicheros;
 
 /**
- * @author Carlos Carrillo V 0.2 Añadida la funcionalidad de Creacion de
- *         clientes y productos para iniciar automaticamente desde un txt
+ * @author Carlos Carrillo V 0.2.1 Añadida la funcionalidad:
+ * Crear un cliente o continuar con uno existente
+ * Imprimir ticket una vez finalizada la compra
+ * Almacenar nuevos clientes
+ * 
  *
  */
 public class GestionPedidos extends TratamientoFicheros {
@@ -84,43 +87,20 @@ public class GestionPedidos extends TratamientoFicheros {
 
 			break;
 		case 2:
+		    System.out.println(" Has elegido: Continuar con el cliente ya creado");
+		    List<Cliente> clientes = Cliente.leerClientesDesdeArchivo(
+		            "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt");
 
-			
-			System.out.println(" Has elegido: Continuar con el cliente ya creado");
-			List<String[]> clientes = fileScannerCliente(
-					"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt");
+		    if (clientes.size() < 3) {
+		        System.out.println("El archivo no contiene suficientes líneas para crear los clientes.");
+		        break;
+		    }
 
-			// Verificar que el archivo contiene suficientes líneas para crear los clientes
-			if (clientes.size() < 3) {
-				System.out.println("El archivo no contiene suficientes líneas para crear los clientes.");
-				break;
-			}
+		    cliente1 = clientes.get(0);
+		    cliente2 = clientes.get(1);
+		    cliente3 = clientes.get(2);
 
-			// Crear el primer cliente con los datos del primer elemento de la lista
-			String[] datosCliente1 = clientes.get(0);
-			String nombre1 = datosCliente1[0];
-			String apellido1 = datosCliente1[1];
-			String telefono1 = datosCliente1[2];
-			String direccion1 = datosCliente1[3];
-
-			cliente1 = new Cliente(nombre1, apellido1, null, telefono1, direccion1, null);
-
-			// Crear el segundo cliente con los datos del segundo elemento de la lista
-			String[] datosCliente2 = clientes.get(1);
-			String nombre2 = datosCliente2[0];
-			String apellido2 = datosCliente2[1];
-			String telefono2 = datosCliente2[2];
-			String direccion2 = datosCliente2[3];
-			cliente2 = new Cliente(nombre2, apellido2, null, telefono2, direccion2, null);
-
-			// Crear el tercer cliente con los datos del tercer elemento de la lista
-			String[] datosCliente3 = clientes.get(2);
-			String nombre3 = datosCliente2[0];
-			String apellido3 = datosCliente2[1];
-			String telefono3 = datosCliente2[2];
-			String direccion3 = datosCliente2[3];
-			cliente3 = new Cliente(nombre2, apellido2, null, telefono2, direccion2, null);
-			break;
+		    break;
 
 		default:
 			System.out.println("Valor introducido no valido");
@@ -151,8 +131,6 @@ public class GestionPedidos extends TratamientoFicheros {
 		boolean esCliente3 = false;
 		boolean esCliente4 = false;
 		
-////////////////////Cambiar por switch parseInt antes y parseString Despues?
-		
 		if (telefono.equals(cliente1.getTelefono())) {
 			System.out.println("Hola Cliente1:");
 			esCliente1 = true;
@@ -174,11 +152,10 @@ public class GestionPedidos extends TratamientoFicheros {
 
 			System.out.println("###Seleccione el producto que desea:");
 
-			System.out.println("1.Producto 1: " + prueba.get(0).getNombre() + " " + prueba.get(0).getPrecio() + "€");
-			System.out.println("2.Producto 2: " + prueba.get(1).getNombre() + " " + prueba.get(1).getPrecio() + "€");
-			System.out.println("3.Producto 3: " + prueba.get(2).getNombre() + " " + prueba.get(2).getPrecio() + "€");
-			System.out.println("4.Producto 4: " + prueba.get(3).getNombre() + " " + prueba.get(3).getPrecio() + "€");
-			System.out.println("5.Producto 5: " + prueba.get(4).getNombre() + " " + prueba.get(4).getPrecio() + "€");
+			for (int i = 0; i < prueba.size(); i++) {
+			    System.out.println((i+1) + ". " + prueba.get(i).getNombre() + " " + prueba.get(i).getPrecio() + "€");
+			}
+
 			int p;
 			Pedido pedido = new Pedido();
 			int stockRestante = 0;
@@ -190,7 +167,7 @@ public class GestionPedidos extends TratamientoFicheros {
 
 					System.out.println("Dime el numero del producto o 0 para finalizar");
 					p = sc.nextInt();
-					sc.nextLine();
+					
 
 					switch (p) {
 
@@ -217,7 +194,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 1: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(0).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						sc.nextLine();
+						;
 						int i;
 						prueba.get(0).realizarPedido(cantidad);
 						prueba.get(0).setCantidad(cantidad);
@@ -245,7 +222,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 2: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(1).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						sc.nextLine();
+						
 						int i;
 						prueba.get(1).realizarPedido(cantidad);
 						prueba.get(1).setCantidad(cantidad);
@@ -271,7 +248,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 3: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(2).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						sc.nextLine();
+						
 						int i;
 						prueba.get(2).realizarPedido(cantidad);
 						prueba.get(2).setCantidad(cantidad);
@@ -296,7 +273,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 4: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(3).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						sc.nextLine();
+						
 						int i;
 						prueba.get(3).realizarPedido(cantidad);
 						prueba.get(3).setCantidad(cantidad);
@@ -321,7 +298,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 5: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(4).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						sc.nextLine();
+						
 						int i;
 						prueba.get(4).realizarPedido(cantidad);
 						prueba.get(4).setCantidad(cantidad);
