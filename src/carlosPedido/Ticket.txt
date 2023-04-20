@@ -1,5 +1,5 @@
 CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
-12                  ZAPATOS             59.99                  719.88 € 
-12                  CAMISETA             29.99                   359.88 € 
- TOTAL -------------------------------> 1079.76  € 
+12                  SOMBRERO             10.0                  120.0 € 
+1                  BUFANDA             5.0                   5.0 € 
+ TOTAL -------------------------------> 125.0  € 
  

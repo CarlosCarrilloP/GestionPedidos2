@@ -23,7 +23,7 @@ public class GestionPedidos extends TratamientoFicheros {
 	public void comprobarTelefono() {
 
 	}
-//////////////Rutas Absolutas
+
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String rutaCliente = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt";
@@ -31,8 +31,7 @@ public class GestionPedidos extends TratamientoFicheros {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("#####MENU INICIAL#####");
-		System.out.println("Debes de crear 3 clientes ");
-		System.out.println("Y 5 productos");
+		System.out.println("Bienvenido");
 		System.out.println("Pulsa intro para continuar");
 		String a = sc.nextLine();
 

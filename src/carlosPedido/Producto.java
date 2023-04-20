@@ -1,5 +1,6 @@
 package carlosPedido;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import ficherosEscrituraLectura.TratamientoFicheros;
@@ -12,6 +13,8 @@ public class Producto extends TratamientoFicheros {
 	int cantidad1 = 0;
 	private int stock;
 	private int stock1[] = new int[30];
+	private LocalDate fecha_caducidad;
+	private String estado;
 
 	// Constructor vacío
 
@@ -90,7 +93,7 @@ public class Producto extends TratamientoFicheros {
 	public ArrayList<Producto> cargarProductos() {
 		
 		
-		// Productos
+		// Carga de inventario de productos mediante fichero externo
 				ArrayList<String[]> productosList = (ArrayList<String[]>) fileScannerProducto(
 						"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Producto.txt");
 				String[] nproducto1 = productosList.get(0);
