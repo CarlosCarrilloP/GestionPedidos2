@@ -12,7 +12,7 @@ public class Producto extends TratamientoFicheros {
 	int cantidad;
 	int cantidad1 = 0;
 	private int stock;
-	private int stock1[] = new int[30];
+	int stock1[] = new int[30];
 	private LocalDate fecha_caducidad;
 	private String estado;
 

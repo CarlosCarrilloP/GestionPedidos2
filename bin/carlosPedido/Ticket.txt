@@ -1,0 +1,5 @@
+CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
+12                  SOMBRERO             10.0                  120.0 € 
+1                  BUFANDA             5.0                   5.0 € 
+ TOTAL -------------------------------> 125.0  € 
+ 
