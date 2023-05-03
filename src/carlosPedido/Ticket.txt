@@ -1,5 +1,11 @@
 CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
+<<<<<<< Updated upstream
 12                  ZAPATOS             59.99                  719.88 € 
 12                  CAMISETA             29.99                   359.88 € 
  TOTAL -------------------------------> 1079.76  € 
+=======
+23                  CAMISETA             29.99                  689.77 € 
+23                  ZAPATOS             59.99                   1379.77 € 
+ TOTAL -------------------------------> 2069.54  € 
+>>>>>>> Stashed changes
  

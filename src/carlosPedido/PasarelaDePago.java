@@ -44,127 +44,29 @@ public class PasarelaDePago {
 
 	// Efectivo
 	
-	public void efectivopago(Double efectivo1) {
-		this.importe = efectivo1;
-		this.codigoPago = this.generarCodigoPago();
+	public void efectivopago(double importe) {
+	    this.importe = importe;
+	    this.codigoPago = generarCodigoPago();
 
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Ha elegido efectivo");
-		
-		double cantidad = efectivo1;
-		System.out.println("El total es de " + cantidad + "€");
-		System.out.println("Necesitas:");
+	    System.out.println("Ha elegido efectivo.");
+	    System.out.printf("El total es de %.2f€.%n", importe);
+	    System.out.println("Necesitas:");
 
-		if (cantidad >= 50) {
-			int i = 0;
-			while (cantidad >= 50) {
+	    float[] denominaciones = {50, 20, 10, 5, 2, 1, (float) 0.50, (float) 0.20, (float) 0.10,(float) 0.05,(float) 0.02, (float)0.01};
+	    String[] billetesMonedas = {"Billetes de 50€", "Billetes de 20€", "Billetes de 10€", "Billetes de 5€", "Monedas de 2€", "Monedas de 1€", "Monedas de 0.50€", "Monedas de 0.20€", "Monedas de 0.10€", "Monedas de 0.05€", "Monedas de 0.02€", "Monedas de 0.01€"};
 
-				cantidad = cantidad - 50;
-				i++;
-			}
-			System.out.println(i + " Billetes de 50€");
-		}
-		if (cantidad <= 50 && cantidad >= 20) {
-			int v = 0;
-			while (cantidad >= 20) {
-
-				cantidad = cantidad - 20;
-				v++;
-			}
-			System.out.println(v + " Billetes de 20€");
-		}
-		if (cantidad <= 20 && cantidad >= 10) {
-			int d = 0;
-			while (cantidad >= 10) {
-
-				cantidad = cantidad - 10;
-				d++;
-			}
-			System.out.println(d + " Billetes de 10€");
-		}
-		if (cantidad <= 10 && cantidad >= 5) {
-			int e = 0;
-			while (cantidad >= 5) {
-
-				cantidad = cantidad - 5;
-				e++;
-			}
-			System.out.println(e + " Billetes de 5€");
-		}
-		if (cantidad <= 5 && cantidad >= 2) {
-			int r = 0;
-			while (cantidad >= 2) {
-
-				cantidad = cantidad - 2;
-				r++;
-			}
-			System.out.println(r + " Monedas de 2€");
-		}
-		if (cantidad <= 2 && cantidad >= 1) {
-			int t = 0;
-			while (cantidad >= 1) {
-
-				cantidad = cantidad - 1;
-				t++;
-			}
-			System.out.println(t + " Monedas de 1€");
-		}
-		if (cantidad <= 1 && cantidad >= 0.5) {
-			int q = 0;
-			while (cantidad >= 0.5) {
-
-				cantidad = (float) (cantidad - 0.5);
-				q++;
-			}
-			System.out.println(q + " Monedas de 0.50€");
-		}
-		if (cantidad <= 0.5 && cantidad >= 0.2) {
-			int y = 0;
-			while (cantidad >= 0.2) {
-
-				cantidad = (float) (cantidad - 0.2);
-				y++;
-			}
-			System.out.println(y + " Monedas de 0.20€");
-		}
-		if (cantidad <= 0.2 && cantidad >= 0.1) {
-			int u = 0;
-			while (cantidad >= 0.1) {
-
-				cantidad = (float) (cantidad - 0.1);
-				u++;
-			}
-			System.out.println(u + " Monedas de 0.10€");
-		}
-		if (cantidad <= 0.1 && cantidad >= 0.05) {
-			int p = 0;
-			while (cantidad >= 0.05) {
-
-				cantidad = (float) (cantidad - 0.05);
-				p++;
-			}
-			System.out.println(p + " Monedas de 0.05€");
-		}
-		if (cantidad <= 0.05 && cantidad >= 0.02) {
-			int o = 0;
-			while (cantidad >= 0.02) {
-
-				cantidad = (float) (cantidad - 0.02);
-				o++;
-			}
-			System.out.println(o + " Monedas de 0.02€");
-		}
-		if (cantidad <= 0.02 && cantidad >= 0.01) {
-			int l = 0;
-			while (cantidad >= 0.01) {
-
-				cantidad = (float) (cantidad - 0.01);
-				l++;
-			}
-			System.out.println(l + " Monedas de 0.01€");
-
-		}
+	    for (int i = 0; i < denominaciones.length; i++) {
+	        int cantidadDenominacionActual = 0;
+	        while (importe >= denominaciones[i]) {
+	            importe -= denominaciones[i];
+	            cantidadDenominacionActual++;
+	        }
+	        if (cantidadDenominacionActual > 0) {
+	            System.out.println(cantidadDenominacionActual + " " + billetesMonedas[i]);
+	        }
+	    }
 	}
+
 
 	// Tarjeta
 	public void tarjeta(String numeroTarjeta) {
