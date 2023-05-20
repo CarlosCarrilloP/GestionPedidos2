@@ -3,7 +3,13 @@ package carlosPedido;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import conexionBBDD.TestConexion;
 
 public class Pedido {
 
@@ -16,6 +22,10 @@ public class Pedido {
 	Estado estado;
 	String codigoPedido;
 	String rutaTicket = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Ticket.txt";
+	static int id;
+	static java.sql.Date fecha_ticket;
+	private static String insertTableSQL;
+
 
 	// Constructor vacío
 	public Pedido() {
@@ -136,7 +146,7 @@ public class Pedido {
 		}
 
 	}
-	
+
 	public Producto eliminarProducto(Producto producto) {
 		producto = null;
 		return producto;
@@ -147,58 +157,91 @@ public class Pedido {
 		return String.valueOf(new Date().getTime());
 
 	}
+
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
 	public String toString() {
-	    
-	    StringBuilder sb = new StringBuilder();
 
-	    double totalProducto1 = 0;
-	    double totalProducto2 = 0;
-	    String strProducto1 = "";
-	    String strProducto2 = "";
-	    if (producto1 != null) {
-	        totalProducto1 = producto1.getCantidad() * producto1.getPrecio();
-	        strProducto1 = producto1.getCantidad() + "                  " + producto1.getNombre() + "             "
-	                + producto1.getPrecio() + "                  " + totalProducto1 + " € \n";
-	    }
-	    if (producto2 != null) {
-	        totalProducto2 = producto2.getCantidad() * producto2.getPrecio();
-	        strProducto2 = producto2.getCantidad() + "                  " + producto2.getNombre() + "             "
-	                + producto2.getPrecio() + "                   " + totalProducto2 + " € \n";
-	    }
-	    double totalPedido = totalProducto1 + totalProducto2;
+		StringBuilder sb = new StringBuilder();
 
-	    sb.append("CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL \n")
-	        .append(strProducto1)
-	        .append(strProducto2)
-	        .append(" TOTAL -------------------------------> ")
-	        .append(totalPedido)
-	        .append("  € \n ");
+		double totalProducto1 = 0;
+		double totalProducto2 = 0;
+		String strProducto1 = "";
+		String strProducto2 = "";
+		if (producto1 != null) {
+			totalProducto1 = producto1.getCantidad() * producto1.getPrecio();
+			strProducto1 = producto1.getCantidad() + "                  " + producto1.getNombre() + "             "
+					+ producto1.getPrecio() + "                  " + totalProducto1 + " € \n";
+		}
+		if (producto2 != null) {
+			totalProducto2 = producto2.getCantidad() * producto2.getPrecio();
+			strProducto2 = producto2.getCantidad() + "                  " + producto2.getNombre() + "             "
+					+ producto2.getPrecio() + "                   " + totalProducto2 + " € \n";
+		}
+		double totalPedido = totalProducto1 + totalProducto2;
 
-	    try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {//False para que no me guarde los tickets, solo 1, si no cambiar a true
-	        pw.print(sb.toString());
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+		sb.append("CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL \n").append(strProducto1)
+				.append(strProducto2).append(" TOTAL -------------------------------> ").append(totalPedido)
+				.append("  € \n ");
 
-	    return sb.toString();
+		try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {// False para que no me guarde los
+				guardarTicketBBDD(sb.toString());																	// tickets, solo 1, si no cambiar a
+																					// true
+			pw.print(sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
 	}
-
 
 	public double toString2() {
 		double totalPedido = 0;
 		if (producto1 != null) {
-			
+
 			double totalProducto1 = producto1.getCantidad() * producto1.getPrecio();
-			totalPedido+=totalProducto1;
+			totalPedido += totalProducto1;
 		}
 		if (producto2 != null) {
 			double totalProducto2 = producto2.getCantidad() * producto2.getPrecio();
 			totalPedido += totalProducto2;
 		}
-		
-		
+
 		return totalPedido;
+	}
+
+	// Metodo para guardar el ticket en la bbdd
+	public static void guardarTicketBBDD(String contenidoTicket) {
+
+		conexionBBDD.Conexion conexion = new conexionBBDD.Conexion();
+		Connection cn = null;
+		PreparedStatement ps = null;
+		ResultSet rs4=null;
+		// int id_usuario=null;
+		// Crear sentencia SQL para insertar en la base de datos
+		insertTableSQL = "INSERT INTO ticket (id,ticket_resume) VALUES (?,?)";
+
+		
+		try {
+
+			cn = conexion.conectar();
+			ps = cn.prepareStatement(insertTableSQL);
+			
+			ps.setInt(1, id);
+			ps.setString(2, contenidoTicket);
+
+			ps.executeUpdate();
+
+			System.out.println("El registro ha sido insertado con exito en la base de datos");
+
+		} catch (SQLException e) { 
+
+			e.printStackTrace();
+
+		} finally { // Liberar recursos revisar el orden en el que se cierran
+			TestConexion.cerrar_conexion3(cn, ps, rs4);
+
+		}
+
 	}
 
 }

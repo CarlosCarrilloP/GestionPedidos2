@@ -1,7 +1,13 @@
 package carlosPedido;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+import conexionBBDD.Conexion;
+import conexionBBDD.TestConexion;
 import ficherosEscrituraLectura.TratamientoFicheros;
 
 public class Producto extends TratamientoFicheros {
@@ -12,6 +18,7 @@ public class Producto extends TratamientoFicheros {
 	int cantidad1 = 0;
 	private int stock;
 	private int stock1[] = new int[30];
+	private static String selectTableSQL;
 
 	// Constructor vacío
 
@@ -135,7 +142,37 @@ public class Producto extends TratamientoFicheros {
 		
 	}
 
-	
+	public ArrayList<Producto> cargarProductosBBDD(){
+		
+		Conexion conexion3 = new Conexion();
+		Connection cn3 = null;
+		Statement stm3 = null;
+		ResultSet rs3 = null;
+
+		selectTableSQL = "SELECT * FROM producto";
+		ArrayList<Producto> productos = new ArrayList<>();
+		try {
+			// Abrimos la conexion con la base de datos
+			cn3 = conexion3.conectar();
+			stm3 = cn3.createStatement();
+			// Pasamos la consulta al ResultSet
+			rs3 = stm3.executeQuery(selectTableSQL);
+
+			while (rs3.next()) {
+				String nombre = rs3.getString("nombre");
+				double precio = rs3.getDouble("precio");
+				int cantidad = rs3.getInt("cantidad");
+				 Producto producto = new Producto(nombre, precio, cantidad);
+		            productos.add(producto);
+		            System.out.println("Productos Cargados");
+			}
+		} catch (SQLException e) { 
+
+		} finally {
+			TestConexion.cerrar_conexion3(cn3, stm3, rs3);
+		}
+		return productos;
+	}
 
 
 

@@ -1,9 +1,15 @@
 package carlosPedido;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import conexionBBDD.Conexion;
+import conexionBBDD.TestConexion;
 import ficherosEscrituraLectura.TratamientoFicheros;
 
 public class Cliente extends TratamientoFicheros {
@@ -16,6 +22,7 @@ public class Cliente extends TratamientoFicheros {
 	String telefono;
 	String direccion;
 	String historial;
+	private static String selectTableSQL;
 
 	// Get and Set
 
@@ -90,12 +97,11 @@ public class Cliente extends TratamientoFicheros {
 	}
 
 	// Constructor
-	public Cliente(String nombre, String apellidos, Date fechaDeAlta, String telefono, String direccion,
-			String historial) {
+	public Cliente(String nombre, String apellidos, String telefono, String direccion) {
 		
 		this.nombre = nombre.toLowerCase();
 		this.apellidos = apellidos.toUpperCase();
-		this.fechaDeAlta = fechaDeAlta;
+	
 
 		if (telefono.length() == 9 && (telefono.startsWith("6") || telefono.startsWith("7") || telefono.startsWith("8")
 				|| telefono.startsWith("9"))) {
@@ -106,13 +112,16 @@ public class Cliente extends TratamientoFicheros {
 		}
 
 		this.direccion = direccion;
-		this.historial = historial;
+		
 	}
 
 	
 	 /* Metodo: Este metodo es el metodo agregarPedido y realizarPedido, ya que en la
 	 * practica, los nombra diferentes, y pide lo mismo.
 	 */
+
+	
+	
 
 	public void realizarPedido(Pedido pedido) {
 
@@ -131,7 +140,7 @@ public class Cliente extends TratamientoFicheros {
 	            String apellido = datos[1];
 	            String telefono = datos[2];
 	            String direccion = datos[3];
-	            Cliente cliente = new Cliente(nombre, apellido, null, telefono, direccion, null);
+	            Cliente cliente = new Cliente(nombre, apellido, telefono, direccion);
 	            clientes.add(cliente);
 	        }
 	    } catch (Exception e) {
@@ -141,6 +150,42 @@ public class Cliente extends TratamientoFicheros {
 	    return clientes;
 	}
 
-	
+public static ArrayList<Cliente> cargarClienteBBDD(){
+		
+		Conexion conexion4 = new Conexion();
+		Connection cn4 = null;
+		Statement stm4 = null;
+		ResultSet rs4 = null;
+
+		selectTableSQL = "SELECT * FROM cliente";
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		try {
+			// Abrimos la conexion con la base de datos
+			cn4 = conexion4.conectar();
+			stm4 = cn4.createStatement();
+			// Pasamos la consulta al ResultSet
+			rs4 = stm4.executeQuery(selectTableSQL);
+
+			while (rs4.next()) {
+				String nombre = rs4.getString("nombre");
+				String apellido = rs4.getString("apellidos");
+				String telefono = rs4.getString("telefono");
+				String direccion = rs4.getString("direccion");
+				Cliente cliente = new Cliente(nombre, apellido, telefono, direccion);
+	            clientes.add(cliente);
+	            
+			}
+			System.out.println("Clientes Cargados");
+		} catch (SQLException e) { 
+			 e.printStackTrace();
+
+		} finally {
+		
+			TestConexion.cerrar_conexion3(cn4, stm4, rs4);
+		}
+		return clientes;
+	}
+
+
 
 }

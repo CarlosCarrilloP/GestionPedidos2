@@ -1,31 +1,43 @@
 package carlosPedido;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+import conexionBBDD.Conexion;
+import conexionBBDD.TestConexion;
 import ficherosEscrituraLectura.TratamientoFicheros;
 
 /**
- * @author Carlos Carrillo V 0.2.1 Añadida la funcionalidad:
- * Crear un cliente o continuar con uno existente
- * Imprimir ticket una vez finalizada la compra
- * Almacenar nuevos clientes
+ * @author Carlos Carrillo V 0.3 Añadida la funcionalidad:
+ * 
+ *         Conexion con la base de datos
+ *         Carga de clientes
+ *         Carga de productos
+ *         Guardado de un cliente nuevo
  * 
  *
  */
 public class GestionPedidos extends TratamientoFicheros {
+	static ArrayList<Cliente> clientes = Cliente.cargarClienteBBDD();
+	private static String selectTableSQL;
+	private static String insertTableSQL;
+	private static String updateTableSQL;
 
-	public void comprobarTelefono() {
-
-	}
-//////////////Rutas Absolutas
+	// Rutas Absolutas
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
+		Conexion conexion = new Conexion();
+		Connection cn = null;
+		Statement stm = null;
+		ResultSet rs = null;
+
 		String rutaCliente = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt";
 		double totalefectivo = 0;
 		Scanner sc = new Scanner(System.in);
@@ -38,17 +50,13 @@ public class GestionPedidos extends TratamientoFicheros {
 
 		// Creacion de los clientes
 
-		// Intentar implementar una automatizacion de la creacion de 3 clientes y 5
-		// productos
-		// Si quiero dar la opcion de crear cliente hacer menu con switch
-
 		System.out.println("1. Crear un Cliente Nuevo");
 		System.out.println("2. Continuar con el cliente ya creado");
 
-		Cliente cliente1 = new Cliente("", "", null, "", "", null);
-		Cliente cliente2 = new Cliente("", "", null, "", "", null);
-		Cliente cliente3 = new Cliente("", "", null, "", "", null);
-		Cliente cliente4 = new Cliente("", "", null, "", "", null);
+		Cliente cliente1 = new Cliente("", "", "", "");
+		Cliente cliente2 = new Cliente("", "", "", "");
+		Cliente cliente3 = new Cliente("", "", "", "");
+		Cliente cliente4 = new Cliente("", "", "", "");
 
 		int selectClient = sc.nextInt();
 
@@ -66,50 +74,50 @@ public class GestionPedidos extends TratamientoFicheros {
 			String direccion4 = sc.nextLine();
 
 			// Crear el cliente4 con los datos ingresados por el usuario
-			cliente4 = new Cliente(nombre4, apellido4, null, telefono4, direccion4, null);
-			
-			// Escribir los datos del cliente4 en el archivo "Cliente.txt"
+			cliente4 = new Cliente(nombre4, apellido4, telefono4, direccion4);
+
+			PreparedStatement ps = null;
+
+			// int id_usuario=null;
+			// Crear sentencia SQL para insertar en la base de datos
+			insertTableSQL = "INSERT INTO cliente (nombre,apellidos,telefono,direccion) VALUES (?,?,?,?)";
+
 			try {
-				// Crear un objeto FileWriter con la opción append a true para no sobreescribir
-				// el contenido existente
-				FileWriter fw = new FileWriter(rutaCliente, true);
-				// Crear un objeto PrintWriter para escribir los datos en el archivo
-				PrintWriter pw = new PrintWriter(fw);
-				// Escribir los datos del cliente4 en el archivo separados por comas
-				pw.println(cliente4.getNombre() + "," + cliente4.getApellidos() + "," + cliente4.getTelefono() + ","
-						+ cliente4.getDireccion());
-				// Cerrar el objeto PrintWriter
-				pw.close();
-			} catch (IOException e) {
-				System.out.println("Error al escribir en el archivo " + rutaCliente);
+
+				cn = conexion.conectar();
+				ps = cn.prepareStatement(insertTableSQL);
+
+				ps.setString(1, nombre4);
+				ps.setString(2, apellido4);
+				ps.setString(3, telefono4);
+				ps.setString(4, direccion4);
+				ps.executeUpdate();
+
+				System.out.println("El registro ha sido insertado con exito en la base de datos");
+
+			} catch (SQLException e) { // TODO: handle exception
+
 				e.printStackTrace();
+
+			} finally { // Liberar recursos revisar el orden en el que se cierran
+			
+				TestConexion.cerrar_conexion3(cn, stm, rs);
 			}
+
+			
 
 			break;
 		case 2:
-		    System.out.println(" Has elegido: Continuar con el cliente ya creado");
-		    List<Cliente> clientes = Cliente.leerClientesDesdeArchivo(
-		            "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Cliente.txt");
+			System.out.println(" Has elegido: Continuar con el cliente ya creado");
+			ArrayList<Cliente> clientes = Cliente.cargarClienteBBDD();
 
-		    if (clientes.size() < 3) {
-		        System.out.println("El archivo no contiene suficientes líneas para crear los clientes.");
-		        break;
-		    }
-
-		    cliente1 = clientes.get(0);
-		    cliente2 = clientes.get(1);
-		    cliente3 = clientes.get(2);
-
-		    break;
-
-		default:
-			System.out.println("Valor introducido no valido");
 			break;
 		}
-		//Cargar Productos
+		// Cargar Productos
+		
 		Producto b = new Producto();
 
-		ArrayList<Producto> prueba = b.cargarProductos();
+		ArrayList<Producto> prueba = b.cargarProductosBBDD();
 
 		// MENU PEDIDOS
 
@@ -121,74 +129,52 @@ public class GestionPedidos extends TratamientoFicheros {
 		 * producto o los productos si son mas de uno
 		 */
 
-		System.out.println("Introduce el telefono del cliente");
-		// Boolean para comprobar cliente
-
+		System.out.println("Introduce el número de teléfono del cliente:");
 		String telefono = sc.next();
 
-		boolean esCliente1 = false;
-		boolean esCliente2 = false;
-		boolean esCliente3 = false;
-		boolean esCliente4 = false;
-		
-		if (telefono.equals(cliente1.getTelefono())) {
-			System.out.println("Hola Cliente1:");
-			esCliente1 = true;
-		} else if (telefono.equals(cliente2.getTelefono())) {
-			System.out.println("Hola Cliente2:");
-			esCliente2 = true;
-		} else if (telefono.equals(cliente3.getTelefono())) {
-			System.out.println("Hola Cliente3:");
-			esCliente3 = true;
-		} else if (telefono.equals(cliente4.getTelefono())) {
-			System.out.println("Hola Cliente4:");
-			esCliente4 = true;
+		boolean encontrado = false;
+		Cliente clienteEncontrado = null;
 
-		} else {
-			System.out.println("No existe ese cliente");
+		for (Cliente cliente : clientes) {
+		    if (cliente.telefono.equals(telefono)) {
+		        encontrado = true;
+		        clienteEncontrado = cliente;
+		        break;
+		    }
 		}
 
-		if (esCliente1 || esCliente2 || esCliente3 || esCliente4) {
+		if (encontrado) {
+		    System.out.println("¡Hola: " + clienteEncontrado.nombre + ", bienvenido de nuevo!");
 
-			System.out.println("###Seleccione el producto que desea:");
+		    System.out.println("###Seleccione el producto que desea:");
+		    for (int i = 0; i < prueba.size(); i++) {
+		        System.out.println((i + 1) + ". " + prueba.get(i).getNombre() + " " + prueba.get(i).getPrecio() + "€");
+		    }
 
-			for (int i = 0; i < prueba.size(); i++) {
-			    System.out.println((i+1) + ". " + prueba.get(i).getNombre() + " " + prueba.get(i).getPrecio() + "€");
-			}
+		    int p;
+		    Pedido pedido = new Pedido();
+		    int stockRestante = 0;
+		    do {
+		        if (stockRestante < 0) {
+		            break;
+		        } else {
+		            System.out.println("Dime el número del producto o 0 para finalizar");
+		            p = sc.nextInt();
 
-			int p;
-			Pedido pedido = new Pedido();
-			int stockRestante = 0;
-			do {
-
-				if (stockRestante < 0) {
-					break;
-				} else {
-
-					System.out.println("Dime el numero del producto o 0 para finalizar");
-					p = sc.nextInt();
-					
-
-					switch (p) {
-
-					case 0: {
-
-						if (esCliente1) {
-							cliente1.realizarPedido(pedido);
-						} else if (esCliente2) {
-							cliente2.realizarPedido(pedido);
-						} else if (esCliente3) {
-							cliente3.realizarPedido(pedido);
-						} else if (esCliente4) {
-							cliente4.realizarPedido(pedido);
-						}
+		            switch (p) {
+		                case 0: {
+		                    clienteEncontrado.realizarPedido(pedido);
+		                    totalefectivo = pedido.toString2();
+		                    System.out.println(pedido.toString());
+		               
+		                
 
 						// Metodo del ticket
-						totalefectivo = pedido.toString2(); 
+						totalefectivo = pedido.toString2();
 						System.out.println(pedido.toString());
 						break;
 					}
-					
+
 					// Submenu productos, se le resta 30 al stock, si es menor de 5, sale un mensaje
 					// en pantalla.
 					case 1: {
@@ -222,7 +208,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 2: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(1).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						
+
 						int i;
 						prueba.get(1).realizarPedido(cantidad);
 						prueba.get(1).setCantidad(cantidad);
@@ -248,7 +234,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 3: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(2).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						
+
 						int i;
 						prueba.get(2).realizarPedido(cantidad);
 						prueba.get(2).setCantidad(cantidad);
@@ -273,7 +259,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 4: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(3).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						
+
 						int i;
 						prueba.get(3).realizarPedido(cantidad);
 						prueba.get(3).setCantidad(cantidad);
@@ -298,7 +284,7 @@ public class GestionPedidos extends TratamientoFicheros {
 					case 5: {
 						System.out.println("¿Cuánta cantidad de " + prueba.get(4).getNombre() + " deseas?");
 						int cantidad = sc.nextInt();
-						
+
 						int i;
 						prueba.get(4).realizarPedido(cantidad);
 						prueba.get(4).setCantidad(cantidad);
