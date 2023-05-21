@@ -21,8 +21,6 @@ import ficherosEscrituraLectura.TratamientoFicheros;
  *         Carga de clientes
  *         Carga de productos
  *         Guardado de un cliente nuevo
- * 
- *
  */
 public class GestionPedidos extends TratamientoFicheros {
 	/**
