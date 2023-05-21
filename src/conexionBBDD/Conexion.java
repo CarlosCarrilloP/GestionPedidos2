@@ -23,7 +23,7 @@ public class Conexion {
      *
      * @return La conexión establecida.
      */
-	public Connection conectar() {
+	public static Connection conectar() {
 		Connection conexion = null;
 
 		try {

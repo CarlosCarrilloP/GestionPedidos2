@@ -17,28 +17,26 @@ import ficherosEscrituraLectura.TratamientoFicheros;
 /**
  * @author Carlos Carrillo V 0.3 Añadida la funcionalidad:
  * 
- *         Conexion con la base de datos
- *         Carga de clientes
- *         Carga de productos
+ *         Conexion con la base de datos Carga de clientes Carga de productos
  *         Guardado de un cliente nuevo
  */
 public class GestionPedidos extends TratamientoFicheros {
 	/**
-     * Lista de clientes cargados.
-     */
+	 * Lista de clientes cargados.
+	 */
 	static ArrayList<Cliente> clientes = Cliente.cargarClienteBBDD();
 	/**
-     * Sentencia SQL para insertar datos en la tabla de clientes.
-     */
+	 * Sentencia SQL para insertar datos en la tabla de clientes.
+	 */
 	private static String insertTableSQL;
 
 	/**
-     * Método principal que ejecuta la gestión de pedidos.
-     *
-     * @param args Argumentos de línea de comandos (no se utilizan).
-     * @throws FileNotFoundException Si no se encuentra un archivo.
-     * @throws IOException           Si ocurre un error de entrada/salida.
-     */
+	 * Método principal que ejecuta la gestión de pedidos.
+	 *
+	 * @param args Argumentos de línea de comandos (no se utilizan).
+	 * @throws FileNotFoundException Si no se encuentra un archivo.
+	 * @throws IOException           Si ocurre un error de entrada/salida.
+	 */
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Conexion conexion = new Conexion();
@@ -107,11 +105,9 @@ public class GestionPedidos extends TratamientoFicheros {
 				e.printStackTrace();
 
 			} finally { // Liberar recursos revisar el orden en el que se cierran
-			
+
 				TestConexion.cerrar_conexion3(cn, stm, rs);
 			}
-
-			
 
 			break;
 		case 2:
@@ -121,7 +117,7 @@ public class GestionPedidos extends TratamientoFicheros {
 			break;
 		}
 		// Cargar Productos
-		
+
 		Producto b = new Producto();
 
 		ArrayList<Producto> prueba = b.cargarProductosBBDD();
@@ -143,38 +139,36 @@ public class GestionPedidos extends TratamientoFicheros {
 		Cliente clienteEncontrado = null;
 
 		for (Cliente cliente : clientes) {
-		    if (cliente.telefono.equals(telefono)) {
-		        encontrado = true;
-		        clienteEncontrado = cliente;
-		        break;
-		    }
+			if (cliente.telefono.equals(telefono)) {
+				encontrado = true;
+				clienteEncontrado = cliente;
+				break;
+			}
 		}
 
 		if (encontrado) {
-		    System.out.println("¡Hola: " + clienteEncontrado.nombre + ", bienvenido de nuevo!");
+			System.out.println("¡Hola: " + clienteEncontrado.nombre + ", bienvenido de nuevo!");
 
-		    System.out.println("###Seleccione el producto que desea:");
-		    for (int i = 0; i < prueba.size(); i++) {
-		        System.out.println((i + 1) + ". " + prueba.get(i).getNombre() + " " + prueba.get(i).getPrecio() + "€");
-		    }
+			System.out.println("###Seleccione el producto que desea:");
+			for (int i = 0; i < prueba.size(); i++) {
+				System.out.println((i + 1) + ". " + prueba.get(i).getNombre() + " " + prueba.get(i).getPrecio() + "€");
+			}
 
-		    int p;
-		    Pedido pedido = new Pedido();
-		    int stockRestante = 0;
-		    do {
-		        if (stockRestante < 0) {
-		            break;
-		        } else {
-		            System.out.println("Dime el número del producto o 0 para finalizar");
-		            p = sc.nextInt();
+			int p;
+			Pedido pedido = new Pedido();
+			int stockRestante = 0;
+			do {
+				if (stockRestante < 0) {
+					break;
+				} else {
+					System.out.println("Dime el número del producto o 0 para finalizar");
+					p = sc.nextInt();
 
-		            switch (p) {
-		                case 0: {
-		                    clienteEncontrado.realizarPedido(pedido);
-		                    totalefectivo = pedido.toString2();
-		                    System.out.println(pedido.toString());
-		               
-		                
+					switch (p) {
+					case 0: {
+						clienteEncontrado.realizarPedido(pedido);
+						totalefectivo = pedido.toString2();
+						System.out.println(pedido.toString());
 
 						// Metodo del ticket
 						totalefectivo = pedido.toString2();

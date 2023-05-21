@@ -26,21 +26,21 @@ public class Pedido {
 	static java.sql.Date fecha_ticket;
 	private static String insertTableSQL;
 
-
 	// Constructor vacío
 	public Pedido() {
 	}
 
 	// Constructor con parámetros
 	/**
-	 * Constructor de la clase Pedido que crea una instancia de Pedido con los parámetros especificados.
+	 * Constructor de la clase Pedido que crea una instancia de Pedido con los
+	 * parámetros especificados.
 	 *
-	 * @param cliente       El cliente asociado al pedido.
-	 * @param producto1     El primer producto del pedido.
-	 * @param producto2     El segundo producto del pedido.
-	 * @param importeTotal  El importe total del pedido.
-	 * @param pago          La pasarela de pago utilizada para el pedido.
-	 * @param estado        El estado actual del pedido.
+	 * @param cliente      El cliente asociado al pedido.
+	 * @param producto1    El primer producto del pedido.
+	 * @param producto2    El segundo producto del pedido.
+	 * @param importeTotal El importe total del pedido.
+	 * @param pago         La pasarela de pago utilizada para el pedido.
+	 * @param estado       El estado actual del pedido.
 	 */
 	public Pedido(Cliente cliente, Producto producto1, Producto producto2, double importeTotal, PasarelaDePago pago,
 			Estado estado) {
@@ -175,8 +175,9 @@ public class Pedido {
 
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
 	/**
-	 * Devuelve una representación en formato de texto del objeto Pedido.
-	 * Este método también imprime un ticket por pantalla y lo guarda en la base de datos.
+	 * Devuelve una representación en formato de texto del objeto Pedido. Este
+	 * método también imprime un ticket por pantalla y lo guarda en la base de
+	 * datos.
 	 *
 	 * @return Una cadena de texto que representa el objeto Pedido.
 	 */
@@ -205,8 +206,8 @@ public class Pedido {
 				.append("  € \n ");
 
 		try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {
-				guardarTicketBBDD(sb.toString());									
-																					
+			guardarTicketBBDD(sb.toString());
+
 			pw.print(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -214,6 +215,7 @@ public class Pedido {
 
 		return sb.toString();
 	}
+
 	/**
 	 * Devuelve el total del pedido como un valor numérico.
 	 *
@@ -245,17 +247,16 @@ public class Pedido {
 		conexionBBDD.Conexion conexion = new conexionBBDD.Conexion();
 		Connection cn = null;
 		PreparedStatement ps = null;
-		ResultSet rs4=null;
+		ResultSet rs4 = null;
 		// int id_usuario=null;
 		// Crear sentencia SQL para insertar en la base de datos
 		insertTableSQL = "INSERT INTO ticket (id,ticket_resume) VALUES (?,?)";
 
-		
 		try {
 
 			cn = conexion.conectar();
 			ps = cn.prepareStatement(insertTableSQL);
-			
+
 			ps.setInt(1, id);
 			ps.setString(2, contenidoTicket);
 
@@ -263,7 +264,7 @@ public class Pedido {
 
 			System.out.println("El registro ha sido insertado con exito en la base de datos");
 
-		} catch (SQLException e) { 
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 

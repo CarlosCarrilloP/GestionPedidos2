@@ -28,13 +28,13 @@ public class Producto extends TratamientoFicheros {
 
 	// Constructor con parámetros
 	/**
-     * Constructor de la clase Producto.
-     * Crea una instancia de Producto con los atributos especificados.
-     *
-     * @param nombre   El nombre del producto.
-     * @param precio   El precio del producto.
-     * @param cantidad La cantidad del producto.
-     */
+	 * Constructor de la clase Producto. Crea una instancia de Producto con los
+	 * atributos especificados.
+	 *
+	 * @param nombre   El nombre del producto.
+	 * @param precio   El precio del producto.
+	 * @param cantidad La cantidad del producto.
+	 */
 	public Producto(String nombre, double precio, int cantidad) {
 		this.nombre = nombre.toUpperCase();
 		this.precio = precio;
@@ -100,68 +100,67 @@ public class Producto extends TratamientoFicheros {
 	public void realizarPedido(int cantidad) {
 		cantidad1 = cantidad1 - cantidad;
 	}
-	
-	//Cargar productos desde fichero
-	 /**
-     * Carga los productos desde un fichero.
-     *
-     * @return Una lista de productos cargados desde el fichero.
-     */
-	public ArrayList<Producto> cargarProductos() {
-		
-		
-		// Productos
-				ArrayList<String[]> productosList = (ArrayList<String[]>) fileScannerProducto(
-						"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Producto.txt");
-				String[] nproducto1 = productosList.get(0);
-				String nombreproducto1 = nproducto1[0];
-				Double precio1 = Double.parseDouble(nproducto1[1]);
-				int cantidad1 = Integer.parseInt(nproducto1[2]);
-				Producto producto1 = new Producto(nombreproducto1, precio1, cantidad1);
 
-				String[] nproducto2 = productosList.get(1);
-				String nombreproducto2 = nproducto2[0];
-				Double precio2 = Double.parseDouble(nproducto2[1]);
-				int cantidad2 = Integer.parseInt(nproducto2[2]);
-				Producto producto2 = new Producto(nombreproducto2, precio2, cantidad2);
-
-				String[] nproducto3 = productosList.get(2);
-				String nombreproducto3 = nproducto3[0];
-				Double precio3 = Double.parseDouble(nproducto3[1]);
-				int cantidad3 = Integer.parseInt(nproducto3[2]);
-				Producto producto3 = new Producto(nombreproducto3, precio3, cantidad3);
-
-				String[] nproducto4 = productosList.get(3);
-				String nombreproducto4 = nproducto4[0];
-				Double precio4 = Double.parseDouble(nproducto4[1]);
-				int cantidad4 = Integer.parseInt(nproducto4[2]);
-				Producto producto4 = new Producto(nombreproducto4, precio4, cantidad4);
-
-				String[] nproducto5 = productosList.get(4);
-				String nombreproducto5 = nproducto5[0];
-				Double precio5 = Double.parseDouble(nproducto5[1]);
-				int cantidad5 = Integer.parseInt(nproducto5[2]);
-				Producto producto5 = new Producto(nombreproducto5, precio5, cantidad5);
-				
-				ArrayList<Producto> productos= new ArrayList<Producto>() ;
-				productos.add(producto1);
-				productos.add(producto2);
-				productos.add(producto3);
-				productos.add(producto4);
-				productos.add(producto5);
-				
-				
-				return productos;
-		
-	}
+	// Cargar productos desde fichero
 	/**
-     * Carga los productos desde la base de datos.
-     *
-     * @return Una lista de productos cargados desde la base de datos.
-     */
-	//Cargar productos desde BBDD
-	public ArrayList<Producto> cargarProductosBBDD(){
-		
+	 * Carga los productos desde un fichero.
+	 *
+	 * @return Una lista de productos cargados desde el fichero.
+	 */
+	public ArrayList<Producto> cargarProductos() {
+
+		// Productos
+		ArrayList<String[]> productosList = (ArrayList<String[]>) fileScannerProducto(
+				"C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/Producto.txt");
+		String[] nproducto1 = productosList.get(0);
+		String nombreproducto1 = nproducto1[0];
+		Double precio1 = Double.parseDouble(nproducto1[1]);
+		int cantidad1 = Integer.parseInt(nproducto1[2]);
+		Producto producto1 = new Producto(nombreproducto1, precio1, cantidad1);
+
+		String[] nproducto2 = productosList.get(1);
+		String nombreproducto2 = nproducto2[0];
+		Double precio2 = Double.parseDouble(nproducto2[1]);
+		int cantidad2 = Integer.parseInt(nproducto2[2]);
+		Producto producto2 = new Producto(nombreproducto2, precio2, cantidad2);
+
+		String[] nproducto3 = productosList.get(2);
+		String nombreproducto3 = nproducto3[0];
+		Double precio3 = Double.parseDouble(nproducto3[1]);
+		int cantidad3 = Integer.parseInt(nproducto3[2]);
+		Producto producto3 = new Producto(nombreproducto3, precio3, cantidad3);
+
+		String[] nproducto4 = productosList.get(3);
+		String nombreproducto4 = nproducto4[0];
+		Double precio4 = Double.parseDouble(nproducto4[1]);
+		int cantidad4 = Integer.parseInt(nproducto4[2]);
+		Producto producto4 = new Producto(nombreproducto4, precio4, cantidad4);
+
+		String[] nproducto5 = productosList.get(4);
+		String nombreproducto5 = nproducto5[0];
+		Double precio5 = Double.parseDouble(nproducto5[1]);
+		int cantidad5 = Integer.parseInt(nproducto5[2]);
+		Producto producto5 = new Producto(nombreproducto5, precio5, cantidad5);
+
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		productos.add(producto1);
+		productos.add(producto2);
+		productos.add(producto3);
+		productos.add(producto4);
+		productos.add(producto5);
+
+		return productos;
+
+	}
+
+	/**
+	 * Carga los productos desde la base de datos.
+	 *
+	 * @return Una lista de productos cargados desde la base de datos.
+	 */
+	// Cargar productos desde BBDD
+	public ArrayList<Producto> cargarProductosBBDD() {
+
 		Conexion conexion3 = new Conexion();
 		Connection cn3 = null;
 		Statement stm3 = null;
@@ -180,11 +179,11 @@ public class Producto extends TratamientoFicheros {
 				String nombre = rs3.getString("nombre");
 				double precio = rs3.getDouble("precio");
 				int cantidad = rs3.getInt("cantidad");
-				 Producto producto = new Producto(nombre, precio, cantidad);
-		            productos.add(producto);
-		            System.out.println("Productos Cargados");
+				Producto producto = new Producto(nombre, precio, cantidad);
+				productos.add(producto);
+				System.out.println("Productos Cargados");
 			}
-		} catch (SQLException e) { 
+		} catch (SQLException e) {
 
 		} finally {
 			TestConexion.cerrar_conexion3(cn3, stm3, rs3);
@@ -192,7 +191,4 @@ public class Producto extends TratamientoFicheros {
 		return productos;
 	}
 
-
-
 }
-
