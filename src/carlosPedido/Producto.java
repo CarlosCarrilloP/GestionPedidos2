@@ -27,6 +27,14 @@ public class Producto extends TratamientoFicheros {
 	}
 
 	// Constructor con parámetros
+	/**
+     * Constructor de la clase Producto.
+     * Crea una instancia de Producto con los atributos especificados.
+     *
+     * @param nombre   El nombre del producto.
+     * @param precio   El precio del producto.
+     * @param cantidad La cantidad del producto.
+     */
 	public Producto(String nombre, double precio, int cantidad) {
 		this.nombre = nombre.toUpperCase();
 		this.precio = precio;
@@ -93,7 +101,12 @@ public class Producto extends TratamientoFicheros {
 		cantidad1 = cantidad1 - cantidad;
 	}
 	
-	
+	//Cargar productos desde fichero
+	 /**
+     * Carga los productos desde un fichero.
+     *
+     * @return Una lista de productos cargados desde el fichero.
+     */
 	public ArrayList<Producto> cargarProductos() {
 		
 		
@@ -141,7 +154,12 @@ public class Producto extends TratamientoFicheros {
 				return productos;
 		
 	}
-
+	/**
+     * Carga los productos desde la base de datos.
+     *
+     * @return Una lista de productos cargados desde la base de datos.
+     */
+	//Cargar productos desde BBDD
 	public ArrayList<Producto> cargarProductosBBDD(){
 		
 		Conexion conexion3 = new Conexion();

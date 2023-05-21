@@ -5,7 +5,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class TestConexion {
-
+	
+	/**
+	 * Metodo para cerrar la conexion
+	 * 
+	 * @return La conexión se ha cerrado con exito.
+	 * */
 	public static void cerrar_conexion3(Connection cn, Statement stm, ResultSet rs) {
 		// Liberar recursos revisar el orden en el que se cierran, orden inverso
 		try {

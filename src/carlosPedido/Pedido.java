@@ -32,6 +32,16 @@ public class Pedido {
 	}
 
 	// Constructor con parámetros
+	/**
+	 * Constructor de la clase Pedido que crea una instancia de Pedido con los parámetros especificados.
+	 *
+	 * @param cliente       El cliente asociado al pedido.
+	 * @param producto1     El primer producto del pedido.
+	 * @param producto2     El segundo producto del pedido.
+	 * @param importeTotal  El importe total del pedido.
+	 * @param pago          La pasarela de pago utilizada para el pedido.
+	 * @param estado        El estado actual del pedido.
+	 */
 	public Pedido(Cliente cliente, Producto producto1, Producto producto2, double importeTotal, PasarelaDePago pago,
 			Estado estado) {
 		this.cliente = cliente;
@@ -153,12 +163,23 @@ public class Pedido {
 	}
 
 	// Codigo pedido: es la fecha de hoy
+	/**
+	 * Genera y devuelve el código del pedido basado en la fecha actual.
+	 *
+	 * @return El código del pedido generado.
+	 */
 	public String generarCodigoPedido() {
 		return String.valueOf(new Date().getTime());
 
 	}
 
 	@Override // Ticket que se imprime por pantalla cuando se realiza el pedido
+	/**
+	 * Devuelve una representación en formato de texto del objeto Pedido.
+	 * Este método también imprime un ticket por pantalla y lo guarda en la base de datos.
+	 *
+	 * @return Una cadena de texto que representa el objeto Pedido.
+	 */
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder();
@@ -183,9 +204,9 @@ public class Pedido {
 				.append(strProducto2).append(" TOTAL -------------------------------> ").append(totalPedido)
 				.append("  € \n ");
 
-		try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {// False para que no me guarde los
-				guardarTicketBBDD(sb.toString());																	// tickets, solo 1, si no cambiar a
-																					// true
+		try (PrintWriter pw = new PrintWriter(new FileWriter(rutaTicket, false))) {
+				guardarTicketBBDD(sb.toString());									
+																					
 			pw.print(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -193,7 +214,11 @@ public class Pedido {
 
 		return sb.toString();
 	}
-
+	/**
+	 * Devuelve el total del pedido como un valor numérico.
+	 *
+	 * @return El total del pedido.
+	 */
 	public double toString2() {
 		double totalPedido = 0;
 		if (producto1 != null) {
@@ -210,6 +235,11 @@ public class Pedido {
 	}
 
 	// Metodo para guardar el ticket en la bbdd
+	/**
+	 * Guarda el contenido del ticket en la base de datos.
+	 *
+	 * @param contenidoTicket El contenido del ticket a guardar.
+	 */
 	public static void guardarTicketBBDD(String contenidoTicket) {
 
 		conexionBBDD.Conexion conexion = new conexionBBDD.Conexion();

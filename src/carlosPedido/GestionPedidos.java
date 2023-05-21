@@ -25,12 +25,22 @@ import ficherosEscrituraLectura.TratamientoFicheros;
  *
  */
 public class GestionPedidos extends TratamientoFicheros {
+	/**
+     * Lista de clientes cargados.
+     */
 	static ArrayList<Cliente> clientes = Cliente.cargarClienteBBDD();
-	private static String selectTableSQL;
+	/**
+     * Sentencia SQL para insertar datos en la tabla de clientes.
+     */
 	private static String insertTableSQL;
-	private static String updateTableSQL;
 
-	// Rutas Absolutas
+	/**
+     * Método principal que ejecuta la gestión de pedidos.
+     *
+     * @param args Argumentos de línea de comandos (no se utilizan).
+     * @throws FileNotFoundException Si no se encuentra un archivo.
+     * @throws IOException           Si ocurre un error de entrada/salida.
+     */
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Conexion conexion = new Conexion();
@@ -78,8 +88,7 @@ public class GestionPedidos extends TratamientoFicheros {
 
 			PreparedStatement ps = null;
 
-			// int id_usuario=null;
-			// Crear sentencia SQL para insertar en la base de datos
+			// Sentencia SQL para insertar en la base de datos
 			insertTableSQL = "INSERT INTO cliente (nombre,apellidos,telefono,direccion) VALUES (?,?,?,?)";
 
 			try {

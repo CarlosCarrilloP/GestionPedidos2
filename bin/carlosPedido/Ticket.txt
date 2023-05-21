@@ -1,5 +1,5 @@
 CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
-3                  ZAPATOS             59.99                  179.97 € 
-4                  SOMBRERO             10.0                   40.0 € 
- TOTAL -------------------------------> 219.97  € 
+4                  SOMBRERO             10.0                  40.0 € 
+2                  GORRA             14.5                   29.0 € 
+ TOTAL -------------------------------> 69.0  € 
  
