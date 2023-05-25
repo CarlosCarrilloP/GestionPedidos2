@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import conexionBBDD.Conexion;
@@ -53,6 +54,7 @@ public class CrearCliente extends JFrame {
 	}
 
 	public CrearCliente() {
+		setTitle("CREAR CLIENTE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 384);
 		contentPane = new JPanel();
@@ -61,7 +63,8 @@ public class CrearCliente extends JFrame {
 		contentPane.setLayout(null);
 		//Direccion
 		textField_4 = new JTextField();
-		textField_4.setBounds(345, 219, 200, 44);
+		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textField_4.setBounds(250, 215, 200, 32);
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 
@@ -82,51 +85,70 @@ public class CrearCliente extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(219, 285, 173, 52);
+		btnNewButton.setBounds(99, 285, 173, 52);
 		contentPane.add(btnNewButton);
 
-		JLabel lblNewLabel_2 = new JLabel("DIRECCION");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(391, 173, 142, 44);
-		contentPane.add(lblNewLabel_2);
-
-		JLabel lblNewLabel_3 = new JLabel("CREAR CLIENTE");
+		JLabel lblNewLabel_3 = new JLabel("INTRODUCE TUS DATOS");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel_3.setBounds(219, 28, 173, 32);
+		lblNewLabel_3.setBounds(99, 23, 411, 32);
 		contentPane.add(lblNewLabel_3);
 		
 		//Apellido
 		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textField_3.setColumns(10);
-		textField_3.setBounds(35, 219, 200, 44);
+		textField_3.setBounds(250, 118, 200, 32);
 		contentPane.add(textField_3);
 		
 		//Telefono
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textField_2.setColumns(10);
-		textField_2.setBounds(345, 99, 200, 44);
+		textField_2.setBounds(250, 168, 200, 32);
 		contentPane.add(textField_2);
 		
 		//Nombre
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textField_1.setColumns(10);
-		textField_1.setBounds(35, 99, 200, 44);
+		textField_1.setBounds(250, 70, 200, 32);
 		contentPane.add(textField_1);
 
-		JLabel lblNewLabel_2_1 = new JLabel("NOMBRE");
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(99, 59, 142, 44);
-		contentPane.add(lblNewLabel_2_1);
-
-		JLabel lblNewLabel_2_2 = new JLabel("TELEFONO");
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(391, 59, 142, 44);
-		contentPane.add(lblNewLabel_2_2);
-
 		JLabel lblNewLabel_2_3 = new JLabel("APELLIDOS");
+		lblNewLabel_2_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_3.setBounds(88, 173, 142, 44);
+		lblNewLabel_2_3.setBounds(137, 113, 92, 44);
 		contentPane.add(lblNewLabel_2_3);
+		
+		JButton cancelar = new JButton("CANCELAR");
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				pantallaInicio2 pantallaInicio2 = new pantallaInicio2();
+				 pantallaInicio2.setVisible(true);
+			}
+		});
+		cancelar.setBounds(337, 285, 173, 52);
+		contentPane.add(cancelar);
+		
+		JLabel lblNewLabel_2_3_1 = new JLabel("NOMBRE");
+		lblNewLabel_2_3_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_3_1.setBounds(137, 65, 92, 44);
+		contentPane.add(lblNewLabel_2_3_1);
+		
+		JLabel lblNewLabel_2_3_2 = new JLabel("TELEFONO");
+		lblNewLabel_2_3_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_3_2.setBounds(137, 163, 92, 44);
+		contentPane.add(lblNewLabel_2_3_2);
+		
+		JLabel lblNewLabel_2_3_3 = new JLabel("DIRECCION");
+		lblNewLabel_2_3_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_3_3.setBounds(137, 215, 92, 44);
+		contentPane.add(lblNewLabel_2_3_3);
 	}
 
 	private boolean validarTelefono(String numero) {
@@ -176,5 +198,4 @@ public class CrearCliente extends JFrame {
 			TestConexion.cerrar_conexion3(cn, ps, rs);
 		}
 	}
-
 }

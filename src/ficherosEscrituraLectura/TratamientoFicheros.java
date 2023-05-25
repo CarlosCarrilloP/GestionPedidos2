@@ -52,6 +52,26 @@ public class TratamientoFicheros {
 	    }
 	    return clientes;
 	}
+	// Metodo fileScanner Conexion
+	public static String[] fileScannerConexion() {
+		String archivoConexion = "C:/Users/Carlos Carrillo/eclipse-workspace/GestionPedidos2/src/carlosPedido/conf.txt";
+        String[] datosConexion = new String[6];
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoConexion))) {
+            String linea;
+            int i=0;
+            while ((linea = br.readLine()) != null) {
+            	 
+            	datosConexion[i]=linea;
+					
+					i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return datosConexion;
+    }
 
 //Metodo fileScanner para Productos
 	public static List<String[]> fileScannerProducto(String archivo) {

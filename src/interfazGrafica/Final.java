@@ -49,9 +49,7 @@ public class Final extends JFrame {
 		});
 	}
 
-	public Final() {
-
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -77,7 +75,7 @@ public class Final extends JFrame {
 
 		JButton btnNewButton = new JButton("Imprimir ticket");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(106, 187, 136, 40);
+		btnNewButton.setBounds(239, 94, 136, 40);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -86,10 +84,22 @@ public class Final extends JFrame {
 			}
 		});
 
-		JButton btnNewButton_1 = new JButton("Cerrar");
+		JButton btnNewButton_1 = new JButton("CERRAR");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(340, 187, 136, 40);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_1_1 = new JButton("ATRAS");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RealizarPedido2 r = new RealizarPedido2(nombreProducto2, cantidadProducto2);
+				r.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton_1_1.setBounds(144, 187, 136, 40);
+		contentPane.add(btnNewButton_1_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -135,8 +145,8 @@ public class Final extends JFrame {
 	private void imprimirTicket() {
 		StringBuilder resumenPedido = new StringBuilder();
 		resumenPedido.append(" ¡GRACIAS POR SU PEDIDO! ").append("\n");
-		resumenPedido.append(this.nombreProducto1).append(" ----- ").append(this.cantidadProducto1).append("\n");
-		resumenPedido.append(this.nombreProducto2).append(" ------").append(this.cantidadProducto2).append("\n");
+		resumenPedido.append(Final.nombreProducto1).append(" ----- ").append(Final.cantidadProducto1).append(" ----- ").append("Poner Precio").append("\n");
+		resumenPedido.append(Final.nombreProducto2).append(" ------").append(Final.cantidadProducto2).append(" ----- ").append("Poner Precio").append("\n");
 
 		JOptionPane.showMessageDialog(null, resumenPedido.toString(), "Resumen del Pedido",
 				JOptionPane.INFORMATION_MESSAGE);

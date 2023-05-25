@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
@@ -55,9 +56,36 @@ public class RealizarPedido1 extends JFrame {
 
 		return nombresProductos;
 	}
+	private List<Double> cargarPrecioProductos() {
+		List<Double> precioProductos = new ArrayList<>();
+		try {
+			Conexion conexion3 = new Conexion();
+			Connection cn = null;
+			Statement stm = null;
+			ResultSet rs = null;
+			String selectQuery = "SELECT precio FROM producto";
+			cn = Conexion.conectar();
+			Statement statement = cn.createStatement();
+			ResultSet resultSet = statement.executeQuery(selectQuery);
+
+			while (resultSet.next()) {
+				Double precioProducto = resultSet.getDouble("precio");
+				precioProductos.add(precioProducto);
+			}
+
+			resultSet.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return precioProductos;
+	}
 
 	public RealizarPedido1() {
+		setTitle("Menu Pedidos");
 		List<String> nombresProductos = cargarNombresProductos();
+		List<Double> precioProductos = cargarPrecioProductos();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 384);
@@ -67,13 +95,8 @@ public class RealizarPedido1 extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("MENU PRODUCTOS");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel.setBounds(205, 20, 208, 20);
-		contentPane.add(lblNewLabel);
-
 		JButton btnNewButton = new JButton(nombresProductos.get(0));
-		btnNewButton.setBounds(68, 117, 159, 75);
+		btnNewButton.setBounds(56, 117, 159, 75);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -85,24 +108,24 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel_1 = new JLabel("ELIGE UN PRODUCTO");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(214, 71, 297, 20);
+		lblNewLabel_1.setBounds(194, 43, 219, 39);
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnNewButton_3 = new JButton("Terminar Pedido");
-		btnNewButton_3.setBounds(231, 298, 168, 39);
+		btnNewButton_3.setBounds(131, 298, 168, 39);
 		contentPane.add(btnNewButton_3);
 
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// LOGICA
 
 				dispose(); // Cierra la ventana actual
 			}
 		});
 
 		JButton btnNewButton_1 = new JButton(nombresProductos.get(1));
-		btnNewButton_1.setBounds(237, 117, 176, 75);
+		btnNewButton_1.setBounds(223, 117, 176, 75);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +136,7 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton(nombresProductos.get(2));
-		btnNewButton_2.setBounds(422, 117, 146, 75);
+		btnNewButton_2.setBounds(408, 117, 146, 75);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +147,7 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(btnNewButton_2);
 
 		JButton btnNewButton_4 = new JButton(nombresProductos.get(3));
-		btnNewButton_4.setBounds(151, 213, 168, 75);
+		btnNewButton_4.setBounds(131, 202, 168, 75);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -135,7 +158,7 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(btnNewButton_4);
 
 		JButton btnNewButton_5 = new JButton(nombresProductos.get(4));
-		btnNewButton_5.setBounds(349, 213, 176, 75);
+		btnNewButton_5.setBounds(309, 202, 176, 75);
 		btnNewButton_5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -144,6 +167,17 @@ public class RealizarPedido1 extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton_5);
+		
+		JButton atras = new JButton("Atras");
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				pantallaInicio2 pantallaInicio2 = new pantallaInicio2();
+				pantallaInicio2.setVisible(true);
+			}
+		});
+		atras.setBounds(309, 298, 168, 39);
+		contentPane.add(atras);
 	}
 
 	public void solicitarCantidad(String producto) {

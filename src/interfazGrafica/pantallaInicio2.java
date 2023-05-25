@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import conexionBBDD.Conexion;
@@ -39,6 +40,7 @@ public class pantallaInicio2 extends JFrame {
 	}
 
 	public pantallaInicio2() {
+		setTitle("GestionPedidos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 384);
 		contentPane = new JPanel();
@@ -69,7 +71,7 @@ public class pantallaInicio2 extends JFrame {
 			}
 		});
 
-		btnNewButton.setBounds(203, 263, 189, 58);
+		btnNewButton.setBounds(84, 263, 189, 58);
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Introduzca su número de teléfono y pulse Continuar");
@@ -78,9 +80,20 @@ public class pantallaInicio2 extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		textField = new JTextField();
-		textField.setBounds(172, 151, 241, 73);
+		textField.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField.setFont(new Font("Tahoma", Font.BOLD, 20));
+		textField.setBounds(172, 151, 243, 58);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        dispose();
+		    }
+		});
+		cancelar.setBounds(294, 263, 189, 58);
+		contentPane.add(cancelar);
 	}
 
 	// Metodo que comprueba si existe el numero en la BBDD
