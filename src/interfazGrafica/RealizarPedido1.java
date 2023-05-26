@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -194,34 +196,44 @@ public class RealizarPedido1 extends JFrame {
 
 		JButton okButton = new JButton("ENVIAR");
 		okButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String cantidad = cantidadField.getText();
-				try {
-					int cantidadNumerica = Integer.parseInt(cantidad);
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String cantidad = cantidadField.getText();
+		        try {
+		            int cantidadNumerica = Integer.parseInt(cantidad);
 
-					if (cantidadNumerica >= 1 && cantidadNumerica <= 30) {
-						JOptionPane.showMessageDialog(null, "Cantidad ingresada para " + producto + ": " + cantidad);
-						
-						dialog.dispose(); // Cerrar la ventana secundaria
-						double resultado = precioArticuloSeleccionado * cantidadNumerica; // Calcula el resultado
-						RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica, resultado);
-						realizarPedido2.setVisible(true);
-					} else {
-						JOptionPane.showMessageDialog(null, "La cantidad debe estar entre 1 y 30 unidades.", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						cantidadField.setText(""); // Limpiar el campo de texto
-						cantidadField.requestFocus(); // Colocar el foco en el campo de texto
-					}
-				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "La cantidad ingresada no es un número válido.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					// Volver a solicitar la cantidad
-					cantidadField.setText(""); // Limpiar el campo de texto
-					cantidadField.requestFocus(); // Colocar el foco en el campo de texto
-				}
-			}
+		            if (cantidadNumerica >= 1 && cantidadNumerica <= 30) {
+		                JOptionPane.showMessageDialog(null, "Cantidad ingresada para " + producto + ": " + cantidad);
+
+		                dialog.dispose(); // Cerrar la ventana secundaria
+		                double resultado = precioArticuloSeleccionado * cantidadNumerica; // Calcula el resultado
+		                RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica, resultado);
+		                realizarPedido2.setVisible(true);
+		            } else {
+		                JOptionPane.showMessageDialog(null, "La cantidad debe estar entre 1 y 30 unidades.", "Error",
+		                        JOptionPane.ERROR_MESSAGE);
+		                cantidadField.setText(""); // Limpiar el campo de texto
+		                cantidadField.requestFocus(); // Colocar el foco en el campo de texto
+		            }
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "La cantidad ingresada no es un número válido.", "Error",
+		                    JOptionPane.ERROR_MESSAGE);
+		            // Volver a solicitar la cantidad
+		            cantidadField.setText(""); // Limpiar el campo de texto
+		            cantidadField.requestFocus(); // Colocar el foco en el campo de texto
+		        }
+		    }
 		});
+
+		cantidadField.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            okButton.doClick();
+		        }
+		    }
+		});
+
 
 		dialog.getContentPane().add(cantidadLabel);
 		dialog.getContentPane().add(cantidadField);

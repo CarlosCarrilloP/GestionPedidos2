@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -230,6 +232,14 @@ public class RealizarPedido2 extends JFrame {
 					cantidadField.requestFocus(); // Colocar el foco en el campo de texto
 				}
 			}
+		});
+		cantidadField.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            okButton.doClick();
+		        }
+		    }
 		});
 
 		dialog.getContentPane().add(cantidadLabel);

@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,23 +53,7 @@ public class pantallaInicio2 extends JFrame {
 		JButton btnNewButton = new JButton("Continuar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String numero = textField.getText();
-
-				if (validarTelefono(numero)) {
-					List<String> telefonos = existeNumero();
-					if (telefonos.contains(numero)) {
-						RealizarPedido1 frame = new RealizarPedido1();
-						frame.setVisible(true);
-						JOptionPane.showMessageDialog(null, "El cliente está registrado");
-					} else {
-						CrearCliente frame = new CrearCliente();
-						frame.setVisible(true);
-						JOptionPane.showMessageDialog(null, "El cliente no está registrado");
-					}
-					dispose(); // Cierra la ventana actual
-				} else {
-					JOptionPane.showMessageDialog(null, "El número de teléfono no es válido");
-				}
+				clickEnviar();
 			}
 		});
 
@@ -94,6 +80,22 @@ public class pantallaInicio2 extends JFrame {
 		});
 		cancelar.setBounds(294, 263, 189, 58);
 		contentPane.add(cancelar);
+		
+		textField.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					clickEnviar();
+				}
+			}
+
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			public void keyReleased(KeyEvent e) {
+
+			}
+		});
 	}
 
 	// Metodo que comprueba si existe el numero en la BBDD
@@ -127,5 +129,25 @@ public class pantallaInicio2 extends JFrame {
 		// Expresión regular para verificar el formato del número de teléfono
 		String regex = "^[6-9]\\d{8}$";
 		return numero.matches(regex);
+	}
+	private void clickEnviar() {
+		String numero = textField.getText();
+
+		if (validarTelefono(numero)) {
+			List<String> telefonos = existeNumero();
+			if (telefonos.contains(numero)) {
+				RealizarPedido1 frame = new RealizarPedido1();
+				frame.setVisible(true);
+				JOptionPane.showMessageDialog(null, "El cliente está registrado");
+			} else {
+				CrearCliente frame = new CrearCliente();
+				frame.setVisible(true);
+				JOptionPane.showMessageDialog(null, "El cliente no está registrado");
+			}
+			dispose(); // Cierra la ventana actual
+		} else {
+			JOptionPane.showMessageDialog(null, "El número de teléfono no es válido");
+		}
+		
 	}
 }
