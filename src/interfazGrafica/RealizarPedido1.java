@@ -30,6 +30,7 @@ public class RealizarPedido1 extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private double precioArticuloSeleccionado;
 
 	private List<String> cargarNombresProductos() {
 		List<String> nombresProductos = new ArrayList<>();
@@ -88,19 +89,20 @@ public class RealizarPedido1 extends JFrame {
 		List<Double> precioProductos = cargarPrecioProductos();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 384);
+		setBounds(420, 200, 613, 384);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 
 		JButton btnNewButton = new JButton(nombresProductos.get(0));
 		btnNewButton.setBounds(56, 117, 159, 75);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				solicitarCantidad(nombresProductos.get(0));
+				solicitarCantidad(nombresProductos.get(0), precioProductos.get(0));
 				dispose(); // Cierra la ventana actual
 
 			}
@@ -129,7 +131,7 @@ public class RealizarPedido1 extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				solicitarCantidad(nombresProductos.get(1));
+				solicitarCantidad(nombresProductos.get(1), precioProductos.get(1));
 				dispose(); // Cierra la ventana actual
 			}
 		});
@@ -140,7 +142,7 @@ public class RealizarPedido1 extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				solicitarCantidad(nombresProductos.get(2));
+				solicitarCantidad(nombresProductos.get(2), precioProductos.get(2));
 				dispose(); // Cierra la ventana actual
 			}
 		});
@@ -151,7 +153,7 @@ public class RealizarPedido1 extends JFrame {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				solicitarCantidad(nombresProductos.get(3));
+				solicitarCantidad(nombresProductos.get(3), precioProductos.get(3));
 				dispose(); // Cierra la ventana actual
 			}
 		});
@@ -162,7 +164,7 @@ public class RealizarPedido1 extends JFrame {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				solicitarCantidad(nombresProductos.get(4));
+				solicitarCantidad(nombresProductos.get(4), precioProductos.get(4));
 				dispose(); // Cierra la ventana actual
 			}
 		});
@@ -180,10 +182,12 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(atras);
 	}
 
-	public void solicitarCantidad(String producto) {
+	public void solicitarCantidad(String producto, double precio) {
+		this.precioArticuloSeleccionado=precio;
 		JDialog dialog = new JDialog(this, "Cantidad", true);
-		dialog.setSize(300, 300);
+		dialog.setSize(300, 200);
 		dialog.getContentPane().setLayout(new FlowLayout());
+		dialog.setLocationRelativeTo(null);
 
 		JLabel cantidadLabel = new JLabel("Cantidad para " + producto + ":");
 		JTextField cantidadField = new JTextField(10);
@@ -199,7 +203,7 @@ public class RealizarPedido1 extends JFrame {
 					if (cantidadNumerica >= 1 && cantidadNumerica <= 30) {
 						JOptionPane.showMessageDialog(null, "Cantidad ingresada para " + producto + ": " + cantidad);
 						dialog.dispose(); // Cerrar la ventana secundaria
-						RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica);
+						RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica, precioArticuloSeleccionado);
 						realizarPedido2.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "La cantidad debe estar entre 1 y 30 unidades.", "Error",
@@ -220,8 +224,9 @@ public class RealizarPedido1 extends JFrame {
 		dialog.getContentPane().add(cantidadLabel);
 		dialog.getContentPane().add(cantidadField);
 		dialog.getContentPane().add(okButton);
-
+		
 		dialog.setVisible(true);
+		
 	}
 
 	public static void main(String[] args) {

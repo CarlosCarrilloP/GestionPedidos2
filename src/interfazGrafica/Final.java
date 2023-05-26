@@ -25,6 +25,8 @@ public class Final extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private static Double precioProducto1;
+	private static Double precioProducto2;
 	public static String nombreProducto1;
 	public static int cantidadProducto1;
 	public static String nombreProducto2;
@@ -39,8 +41,8 @@ public class Final extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Final finalFrame = new Final(nombreProducto1, cantidadProducto1, nombreProducto2,
-							cantidadProducto2);
+					Final finalFrame = new Final(nombreProducto1, cantidadProducto1, precioProducto1, nombreProducto2,
+							cantidadProducto2, precioProducto2);
 					finalFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,16 +55,20 @@ public class Final extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param precioProducto22 
+	 * @param nombreProducto2 
 	 */
-	public Final(String nombreProducto1, int cantidadProducto1, String nombreProducto2, int cantidadProducto2) {
+	public Final(String nombreProducto1, int cantidadProducto1, Double precioProducto1, String nombreProducto2, int cantidadProducto2, Double precioProducto22) {
 
 		this.nombreProducto1 = nombreProducto1;
 		this.cantidadProducto1 = cantidadProducto1;
 		this.nombreProducto2 = nombreProducto2;
 		this.cantidadProducto2 = cantidadProducto2;
+		this.precioProducto1 = precioProducto1;
+		this.precioProducto2 = precioProducto1;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 384);
+		setBounds(420, 200, 613, 384);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +98,7 @@ public class Final extends JFrame {
 		JButton btnNewButton_1_1 = new JButton("ATRAS");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RealizarPedido2 r = new RealizarPedido2(nombreProducto2, cantidadProducto2);
+				RealizarPedido2 r = new RealizarPedido2(nombreProducto2, cantidadProducto2, precioProducto22);
 				r.setVisible(true);
 				dispose();
 			}
