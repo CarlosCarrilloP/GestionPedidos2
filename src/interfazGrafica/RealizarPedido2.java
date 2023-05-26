@@ -32,7 +32,8 @@ public class RealizarPedido2 extends JFrame {
 	private JPanel contentPane;
 	public static String nombreProductoSeleccionado1;
 	public static int cantidadProductoSeleccionada1;
-	public static double precioArticuloSeleccionado1 ;
+	public static double precioArticuloSeleccionado ;
+	public static double precioArticuloSeleccionado2 ;
 
 	private List<String> cargarNombresProductos() {
 		List<String> nombresProductos = new ArrayList<>();
@@ -90,7 +91,8 @@ public class RealizarPedido2 extends JFrame {
 
 		RealizarPedido2.nombreProductoSeleccionado1 = nombreProductoSeleccionado1;
 		RealizarPedido2.cantidadProductoSeleccionada1 = cantidadProductoSeleccionada1;
-		RealizarPedido2.precioArticuloSeleccionado1 = precioArticuloSeleccionado1;
+		RealizarPedido2.precioArticuloSeleccionado = precioArticuloSeleccionado1;
+		
 
 		List<String> nombresProductos = cargarNombresProductos();
 		List<Double> precioProductos = cargarPrecioProductos();
@@ -127,7 +129,7 @@ public class RealizarPedido2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose(); // Cerrar la ventana secundaria
 				// Crear y mostrar el JFrame "Final"
-				Final Final = new Final(nombreProductoSeleccionado1, cantidadProductoSeleccionada1, nombreProductoSeleccionado1, cantidadProductoSeleccionada1);
+				Final Final = new Final(nombreProductoSeleccionado1, cantidadProductoSeleccionada1, precioArticuloSeleccionado, nombreProductoSeleccionado1, cantidadProductoSeleccionada1, precioArticuloSeleccionado);
 				Final.setVisible(true);
 			}
 		});
@@ -189,7 +191,8 @@ public class RealizarPedido2 extends JFrame {
 	}
 
 
-	public void solicitarCantidad(String producto) {
+	public void solicitarCantidad(String producto, double precio) {
+		
 		JDialog dialog = new JDialog(this, "Cantidad", true);
 		dialog.setSize(300, 200);
 		dialog.getContentPane().setLayout(new FlowLayout());
@@ -202,17 +205,16 @@ public class RealizarPedido2 extends JFrame {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				String cantidad = cantidadField.getText();
 				try {
 					int cantidadNumerica = Integer.parseInt(cantidad);
 
 					if (cantidadNumerica >= 1 && cantidadNumerica <= 30) {
 						JOptionPane.showMessageDialog(null, "Cantidad ingresada para " + producto + ": " + cantidad);
-
+						double resultado = precio * cantidadNumerica; // Calcula el resultado
 						dialog.dispose(); // Cerrar la ventana secundaria
-						Final Final = new Final(nombreProductoSeleccionado1, cantidadProductoSeleccionada1, producto,
-								cantidadNumerica);
+						Final Final = new Final(nombreProductoSeleccionado1, cantidadProductoSeleccionada1, precioArticuloSeleccionado , producto,
+								cantidadNumerica, resultado);
 						Final.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "La cantidad debe estar entre 1 y 30 unidades.", "Error",
@@ -229,18 +231,20 @@ public class RealizarPedido2 extends JFrame {
 				}
 			}
 		});
+
 		dialog.getContentPane().add(cantidadLabel);
 		dialog.getContentPane().add(cantidadField);
 		dialog.getContentPane().add(okButton);
-
+		
 		dialog.setVisible(true);
+		
 	}
-
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				RealizarPedido2 frame = new RealizarPedido2(nombreProductoSeleccionado1, cantidadProductoSeleccionada1);
+				RealizarPedido2 frame = new RealizarPedido2(nombreProductoSeleccionado1, cantidadProductoSeleccionada1, precioArticuloSeleccionado);
 				frame.setVisible(true);
 			}
 		});

@@ -1,5 +1,3 @@
 CANTIDAD            PRODUCTO           PRECIO UD.                TOTAL 
-4                  SOMBRERO             10.0                  40.0 € 
-2                  GORRA             14.5                   29.0 € 
- TOTAL -------------------------------> 69.0  € 
+ TOTAL -------------------------------> 0.0  € 
  

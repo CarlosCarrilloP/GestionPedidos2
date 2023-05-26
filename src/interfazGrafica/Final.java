@@ -32,6 +32,8 @@ public class Final extends JFrame {
 	public static String nombreProducto2;
 	private static String insertTableSQL;
 	public static int cantidadProducto2;
+	private static String ticket;
+	
 	static int id;
 
 	/**
@@ -58,21 +60,35 @@ public class Final extends JFrame {
 	 * @param precioProducto22 
 	 * @param nombreProducto2 
 	 */
-	public Final(String nombreProducto1, int cantidadProducto1, Double precioProducto1, String nombreProducto2, int cantidadProducto2, Double precioProducto22) {
-
+	public Final(String nombreProducto1, int cantidadProducto1, Double precioProducto1, String nombreProducto2, int cantidadProducto2, Double precioProducto2) {
+		
 		this.nombreProducto1 = nombreProducto1;
 		this.cantidadProducto1 = cantidadProducto1;
+		this.precioProducto1 = precioProducto1;
+		
 		this.nombreProducto2 = nombreProducto2;
 		this.cantidadProducto2 = cantidadProducto2;
-		this.precioProducto1 = precioProducto1;
-		this.precioProducto2 = precioProducto1;
+		this.precioProducto2 = precioProducto2;
+		
+		
+		
+		 StringBuilder resumenPedido = new StringBuilder();
+		    resumenPedido.append(" ¡GRACIAS POR SU PEDIDO! ").append("\n");
+		    resumenPedido.append(Final.nombreProducto1).append(" ----- ").append(Final.cantidadProducto1).append(" ----- ").append(Final.precioProducto1).append("\n");
 
+		    if (Final.nombreProducto2 != null && Final.cantidadProducto2 > 0 && Final.precioProducto2 != null) {
+		        resumenPedido.append(Final.nombreProducto2).append(" ------").append(Final.cantidadProducto2).append(" ----- ").append(Final.precioProducto2).append("\n");
+		    }
+		
+		    ticket = resumenPedido.toString();
+		    guardarTicketBBDD();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(420, 200, 613, 384);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 
 		JLabel lblNewLabel = new JLabel("¡Gracias por tu pedido!");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -87,6 +103,8 @@ public class Final extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				imprimirTicket();
+				
+				
 			}
 		});
 
@@ -98,7 +116,7 @@ public class Final extends JFrame {
 		JButton btnNewButton_1_1 = new JButton("ATRAS");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RealizarPedido2 r = new RealizarPedido2(nombreProducto2, cantidadProducto2, precioProducto22);
+				RealizarPedido2 r = new RealizarPedido2(nombreProducto2, cantidadProducto2, precioProducto2);
 				r.setVisible(true);
 				dispose();
 			}
@@ -115,7 +133,7 @@ public class Final extends JFrame {
 		});
 	}
 
-	public static void guardarTicketBBDD(String contenidoTicket) {
+	public static void guardarTicketBBDD() {
 
 		conexionBBDD.Conexion conexion = new conexionBBDD.Conexion();
 		Connection cn = null;
@@ -131,7 +149,7 @@ public class Final extends JFrame {
 			ps = cn.prepareStatement(insertTableSQL);
 
 			ps.setInt(1, id);
-			ps.setString(2, contenidoTicket);
+			ps.setString(2, ticket);
 
 			ps.executeUpdate();
 
@@ -149,14 +167,11 @@ public class Final extends JFrame {
 	}
 
 	private void imprimirTicket() {
-		StringBuilder resumenPedido = new StringBuilder();
-		resumenPedido.append(" ¡GRACIAS POR SU PEDIDO! ").append("\n");
-		resumenPedido.append(Final.nombreProducto1).append(" ----- ").append(Final.cantidadProducto1).append(" ----- ").append("Poner Precio").append("\n");
-		resumenPedido.append(Final.nombreProducto2).append(" ------").append(Final.cantidadProducto2).append(" ----- ").append("Poner Precio").append("\n");
-
-		JOptionPane.showMessageDialog(null, resumenPedido.toString(), "Resumen del Pedido",
-				JOptionPane.INFORMATION_MESSAGE);
-
+	   
+	    	
+	    JOptionPane.showMessageDialog(null, ticket, "Resumen del Pedido",
+	            JOptionPane.INFORMATION_MESSAGE);
 	}
+
 
 }

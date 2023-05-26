@@ -182,7 +182,7 @@ public class RealizarPedido1 extends JFrame {
 		contentPane.add(atras);
 	}
 
-	public void solicitarCantidad(String producto, double precio) {
+	public void solicitarCantidad(String producto, Double precio) {
 		this.precioArticuloSeleccionado=precio;
 		JDialog dialog = new JDialog(this, "Cantidad", true);
 		dialog.setSize(300, 200);
@@ -202,8 +202,10 @@ public class RealizarPedido1 extends JFrame {
 
 					if (cantidadNumerica >= 1 && cantidadNumerica <= 30) {
 						JOptionPane.showMessageDialog(null, "Cantidad ingresada para " + producto + ": " + cantidad);
+						
 						dialog.dispose(); // Cerrar la ventana secundaria
-						RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica, precioArticuloSeleccionado);
+						double resultado = precioArticuloSeleccionado * cantidadNumerica; // Calcula el resultado
+						RealizarPedido2 realizarPedido2 = new RealizarPedido2(producto, cantidadNumerica, resultado);
 						realizarPedido2.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "La cantidad debe estar entre 1 y 30 unidades.", "Error",
